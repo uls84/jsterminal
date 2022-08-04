@@ -1,0 +1,41 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: blue;
+    font-family: 'Overpass Mono', monospace;
+    /*color: blue;*/
+    color:aliceblue;
+}
+
+h1 {
+    color: aliceblue;
+    margin: 64px 62px;
+}
+
+legend {
+    background-color: aliceblue;
+}
+
+fieldset {
+    height: 400px;
+    width: 800px;
+    text-align: center;
+}
+
+textarea {
+    height: 30px;
+    width: 600px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+section {
+    text-align: center;
+    padding: 22px;
+    display: flex;
+}
