@@ -17,19 +17,29 @@ const tipoDePersonaje = [
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos)
 
-const personaje = [];
+let jugador = "";
+
+function equipamiento(arma) {
+    jugador.restarDinero(800);
+    jugador.equiparArma(arma);
+    return;
+}
+
+function comprarPociones() {
+    jugador.guardarPociones(1);
+    jugador.restarDinero(25);
+    alert(`Tenes ${jugador.getCantPociones}`);
+}
 
 pantallaBienvenida();
 
-function tienda(personaje) {
-    let arma = personaje.arma;
+function tienda(jugador) {
     let opcion = "";
 
-
     while (opcion !== 5) {
-        if (!personaje[0].verificarArmaEquipada) {
+        if (!jugador.verificarArmaEquipada) {
             opcion = Number(prompt(`Bienvenido a la tienda, por favor ingrese el numero representado el producto que desea adquirir
-        Tenes ${personaje[0].getDineroDisponible} para gastar.
+        Tenes ${jugador.getDineroDisponible} para gastar.
         1- Espada ===> 800R
         2- Arco ===> 800R
         3- Hacha ===> 800R
@@ -38,34 +48,29 @@ function tienda(personaje) {
 
             switch (opcion) {
                 case 1: // hay que hacerlo en el objeto que si no es de esa clase le reste fuerza
-                    if (!personaje[0].verificarArmaEquipada && personaje[0].getDineroDisponible >= 800) {
-                        personaje[0].restarDinero(800);
-                        personaje[0].equiparArma("Espada");
+                    if (jugador.getDineroDisponible >= 800) {
+                        equipamiento("Espada");
                     } else {
                         alert("Ya tenes el arma equipada");
                     };
                     break;
                 case 2:
-                    if (!personaje[0].verificarArmaEquipada && personaje[0].getDineroDisponible >= 800) {
-                        personaje[0].restarDinero(800);
-                        personaje[0].equiparArma("Arco");
+                    if (jugador.getDineroDisponible >= 800) {
+                        equipamiento("Arco");
                     } else {
                         alert("Ya tenes el arma equipada");
                     };
                     break;
                 case 3:
-                    if (!personaje[0].verificarArmaEquipada && personaje[0].getDineroDisponible >= 800) {
-                        personaje[0].restarDinero(800);
-                        personaje[0].equiparArma("Hacha");
+                    if (jugador.getDineroDisponible >= 800) {
+                        equipamiento("Hacha");
                     } else {
                         alert("Ya tenes el arma equipada");
                     };
                     break;
                 case 4:
-                    if (personaje[0].getDineroDisponible >= 25) {
-                        personaje[0].guardarPociones(1);
-                        personaje[0].restarDinero(25);
-                        alert(`Tenes ${personaje[0].getCantPociones}`);
+                    if (jugador.getDineroDisponible >= 25) {
+                        comprarPociones();
                     }
                     break;
                 case 5:
@@ -74,18 +79,16 @@ function tienda(personaje) {
                     alert("La opcion selecionada no es correcta");
                     break;
             }
-        } else if (personaje[0].verificarArmaEquipada) {
+        } else if (jugador.verificarArmaEquipada) {
             opcion = Number(prompt(`Bienvenido a la tienda, por favor ingrese el numero representado el producto que desea adquirir
-            Tenes ${personaje[0].getDineroDisponible} para gastar.
+            Tenes ${jugador.getDineroDisponible} para gastar.
             1- Pocion ===> 25R
             5- Menu Principal`));
             switch (opcion) {
                 case 1:
-                    if (personaje[0].getDineroDisponible >= 25) {
-                        personaje[0].guardarPociones(1);
-                        personaje[0].restarDinero(25);
-                        alert(`Tenes ${personaje[0].getCantPociones}`);
-                    } else if (personaje[0].getDineroDisponible < 25) {
+                    if (jugador.getDineroDisponible >= 25) {
+                        comprarPociones();
+                    } else if (jugador.getDineroDisponible < 25) {
                         alert("No tenes mas dinero disponible");
                         return;
                     }
@@ -99,6 +102,8 @@ function tienda(personaje) {
         }
     }
 }
+
+
 
 function pantallaBienvenida() {
     let opcion = "";
@@ -116,16 +121,16 @@ function pantallaBienvenida() {
                 crearPersonaje();
                 break;
             case 2:
-                mostrarMenu();
+                menuDeEnemigos();
                 break;
             case 3:
-                if (personaje[0] != null) {
-                    tienda(personaje);
+                if (jugador != null) {
+                    tienda(jugador);
                 }
                 else { alert("Aun no tenes el personaje creado, por favor crea tu personaje primero"); }
                 break;
             case 4:
-                if (personaje[0] != null) {
+                if (jugador != null) {
                     return jugar();
                 }
                 else { alert("Aun no tenes el personaje creado, por favor crea tu personaje primero"); }
@@ -141,9 +146,9 @@ function pantallaBienvenida() {
 }
 
 function jugar() {
-    console.log(personaje[0]);
+    console.log(jugador);
     let opciones = document.createElement("div");
-    opciones.innerHTML = `<fieldset><h1>Bienvenido ${personaje[0].nombre}</h1>
+    opciones.innerHTML = `<fieldset><h1>Bienvenido ${jugador.nombre}</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adip
                             Lorem ipsum dolor sit amet, consectetur adip
                             Lorem ipsum dolor sit amet, consectetur adip</p>
@@ -183,6 +188,7 @@ function crearPersonaje() {
                 break;
             case 3:
                 alert("Has seleccionado ser un Barbaro, felicitaciones, recorda pasar por la tienda y comprar tu hacha!");
+                break;
             default:
                 alert("La opcion selecionada no es correcta");
                 break;
@@ -191,12 +197,11 @@ function crearPersonaje() {
     } while (seleccionPersonaje != 3 && seleccionPersonaje !== 2 && seleccionPersonaje !== 1);
 
 
-    const perNuevo = new Personaje(nombre, tipoDePersonaje[seleccionPersonaje - 1]);
-    personaje.push(perNuevo);
-    pantallaBienvenida();
+    let perNuevo = new Personaje(nombre, tipoDePersonaje[seleccionPersonaje - 1]);
+    jugador = perNuevo;
 }
 
-function mostrarMenu() {
+function menuDeEnemigos() {
     let opcion = "";
     while (opcion !== "4") {
         opcion = prompt(`Ingrese una opcion:
