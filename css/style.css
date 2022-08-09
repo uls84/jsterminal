@@ -7,10 +7,11 @@
 body {
     background-color: blue;
     font-family: 'Overpass Mono', monospace;
-    /*color: blue;*/
-    color:aliceblue;
+    color: aliceblue;
+    height: 978px;
+    width: auto;
 }
-
+/*
 h1 {
     color: aliceblue;
     margin: 64px 62px;
@@ -20,7 +21,7 @@ legend {
     background-color: aliceblue;
 }
 
-fieldset {
+div {
     height: 400px;
     width: 800px;
     text-align: center;
@@ -38,4 +39,20 @@ section {
     text-align: center;
     padding: 22px;
     display: flex;
+}
+*/
+
+input#personaje {
+    width: 461px;
+    height: 22px;
+    margin-bottom: 10px;
+}
+
+div {
+    height: 560px;
+    width: 980px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin:auto;
 }

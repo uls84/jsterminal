@@ -47,7 +47,7 @@ function tienda(jugador) {
         5- Menu Principal`));
 
             switch (opcion) {
-                case 1: // hay que hacerlo en el objeto que si no es de esa clase le reste fuerza
+                case 1:
                     if (jugador.getDineroDisponible >= 800) {
                         equipamiento("Espada");
                     } else {
