@@ -11,6 +11,10 @@ body {
     height: 978px;
     width: auto;
 }
+
+#contenedor-crearpersonaje{
+    display: none;
+}
 /*
 h1 {
     color: aliceblue;
@@ -48,11 +52,16 @@ input#personaje {
     margin-bottom: 10px;
 }
 
-div {
+main {
     height: 560px;
     width: 980px;
     text-align: center;
     display: flex;
     align-items: center;
     margin:auto;
+    justify-content: center;
+}
+
+#respuesta{
+    display: none;
 }

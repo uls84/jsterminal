@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <link rel="stylesheet" href="./css/style.css">
 
 
     <script src="./javascript/classes/enemigo.class.js" defer></script>
@@ -17,14 +17,30 @@
 </head>
 
 <body>
-    <div>
+    <main>
         <fieldset id="contenedor">
             <legend id="tituloPagina"></legend>
             <p id="texto">Texto a mostrar</p>
             <input type="text" name="name" id="respuesta">
             <input type="submit" value="Continuar" id="dato">
         </fieldset>
-    </div>
+        <fieldset id="contenedor-crearpersonaje">
+            <legend id="tituloPagina"></legend>
+            <p id="texto">Crea el personaje</p>
+            <p >Nombre</p>
+            <input type="text" id="nombre">
+            <p >Tipo</p>
+            <select id="tipo">
+                <option value=""></option>
+                <option value="1">Guerrero</option>
+                <option value="2">Elfo</option>
+                <option value="3">Barbaro</option>
+            </select>
+            <div>
+                <input type="submit" value="Continuar" id="btn_crearpersonaje">
+            </div>
+        </fieldset>
+    </main>
 </body>
 
 </html>
