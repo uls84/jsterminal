@@ -146,7 +146,7 @@ document.getElementById('btn_crearpersonaje').onclick = function(){
     let tipo = document.getElementById('tipo');
     console.log(document.getElementById('tipo'));
     if (nombre.value && tipo.value){
-        alert("Has seleccionado un "+tipo.innerText);
+        alert("Has seleccionado un "+tipo.options[tipo.selectedIndex].text);
         let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
         localStorage.setItem("jugador", JSON.stringify(perNuevo));
     } else {
