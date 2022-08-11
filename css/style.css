@@ -5,9 +5,9 @@
 }
 
 body {
-    background-color: blue;
-    font-family: 'Overpass Mono', monospace;
-    color: aliceblue;
+    background-color: rgb(0, 0, 170);
+    font-family: 'Overpass Mono', monospace !important;
+    color: rgb(174, 174, 170);
     height: 978px;
     width: auto;
 }
@@ -15,36 +15,6 @@ body {
 #contenedor-crearpersonaje{
     display: none;
 }
-/*
-h1 {
-    color: aliceblue;
-    margin: 64px 62px;
-}
-
-legend {
-    background-color: aliceblue;
-}
-
-div {
-    height: 400px;
-    width: 800px;
-    text-align: center;
-}
-
-textarea {
-    height: 30px;
-    width: 600px;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-}
-
-section {
-    text-align: center;
-    padding: 22px;
-    display: flex;
-}
-*/
 
 input#personaje {
     width: 461px;
@@ -64,4 +34,47 @@ main {
 
 #respuesta{
     display: none;
+}
+
+fieldset#contenedor {
+    padding: 12px;
+    margin-top: 226px;
+}
+
+fieldset#contenedor-crearpersonaje {
+    padding: 12px;
+    margin-top: 226px;
+}
+
+p {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: large;
+}
+
+legend {
+    color: rgb(0, 0, 170);
+    background: rgb(170, 170, 170);
+    font-size: large;
+    font-weight: bold;
+}
+
+input, btn.boton {
+    background: rgb(170, 170, 170);
+    border: none;
+    color: rgb(0, 0, 170);
+    padding: 6px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+
+
+select#tipo {
+    color: rgb(0, 0, 170);
+    background: rgb(170, 170, 170);
 }

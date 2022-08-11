@@ -1,6 +1,7 @@
-let textos = [`Has click para comenzar con el juego!`,
-    `Bienvenido a las tierras abandonadas donde el bien jamas es visto y la luna parece nunca abandonar estas tierras
-    Seleccione una de las siguientes opciones ingresando el numero a la izquierda
+let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto y la luna parece nunca abandonar estas tierras
+    
+    Has click para comenzar con el juego!`,
+    `Seleccione una de las siguientes opciones ingresando el numero a la izquierda
         1- Crear el personaje
         2- Ir a la tienda
         3 - Jugar
@@ -72,7 +73,7 @@ function tienda() {
                     alert("La opcion selecionada no es correcta");
                     break;
             }
-        } else  {
+        } else {
             titulosYTextos(titulos[3], textos[4]);
             console.log("Estoy en el cielo si entro a la tiend");
             let opcion = document.getElementById("respuesta").value;
@@ -90,6 +91,25 @@ function tienda() {
     }
 }
 
+function boton(nombres) {
+    for (const nombre of nombres) {
+        let fieldset = document.getElementById("contenedor");
+        let btn = document.createElement("btn");
+        btn.innerText = nombre;
+        btn.setAttribute("class", `boton`);
+        fieldset.appendChild(btn);
+    }
+}
+
+function botonObjetos(nombres) {
+    for (const nombre of nombres) {
+        let fieldset = document.getElementById("contenedor");
+        let btn = document.createElement("btn");
+        btn.innerText = nombre;
+        btn.setAttribute("class", `boton`);
+        fieldset.appendChild(btn);
+    }
+}
 
 function titulosYTextos(titulos, textos) {
     let tituloPagina = document.getElementById("tituloPagina");
@@ -99,54 +119,58 @@ function titulosYTextos(titulos, textos) {
     return;
 }
 
-function ocultarInput(x) {
-    let input = document.getElementById("input");
-    x ? input.style.visibility = "hidden" : input.style.display = "visible";
-}
-
-function boton(btnN, text) {
-    for (let i = 0; i < btnN; i++) {
-        let fieldset = document.getElementById("contenedor");
-        let btn = document.createElement("btn");
-        btn.innerText = text;
-        btn.setAttribute("id", `boton${i + 1}`);
-        fieldset.appendChild(btn);
-    }
-}
-
 function pantallaPrincipal() {
     titulosYTextos(titulos[0], textos[0]);
     let btn = document.getElementById("dato");
     btn.onclick = () => menuPrincipal();
 }
 
+const opcionesMenuPrincipal = [
+    "Crear personaje",
+    "Tienda",
+    "Jugar",
+    "Salir"
+]
+
+const {
+    nombre: names
+ } = tipoDePersonaje;
+
 function menuPrincipal() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     document.getElementById("contenedor").style.display = 'block';
     document.getElementById("respuesta").style.display = 'inline';
     titulosYTextos(titulos[1], textos[1]);
+    // Probando de crear los botones asi borro el input
+    localStorage.getItem("jugador") != null? boton(opcionesMenuPrincipal): console.log("Ya estan creados");
+
     let btn = document.getElementById("dato");
     let opcion = document.getElementById("respuesta");
+
     console.log(opcion);
     btn.onclick = () => pantallaBienvenida(opcion);
 }
 
+
 function crearPersonaje() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
     document.getElementById("contenedor").style.display = 'none';
+    //agregar los tres botones de personaje aca
+    //boton(tipoDePersonaje);
     titulosYTextos(titulos[4], textos[5]);
-    let textoCrearPersonaje = document.getElementById("texto");
-    let opcionPersonaje = document.getElementById("respuesta").value;
-
+    let textoCrearPersonaje = document.getElementById("textoPersonaje");
+    textoCrearPersonaje.innerText = textos[5];
+    let tituloCrearPersonaje = document.getElementById("tituloPersonaje");
+    tituloCrearPersonaje.innerText = titulos[4];
 }
 
-document.getElementById('btn_crearpersonaje').onclick = function(){
+document.getElementById('btn_crearpersonaje').onclick = function () {
     let nombre = document.getElementById('nombre');
     console.log(document.getElementById('nombre'));
     let tipo = document.getElementById('tipo');
     console.log(document.getElementById('tipo'));
-    if (nombre.value && tipo.value){
-        alert("Has seleccionado un "+tipo.options[tipo.selectedIndex].text);
+    if (nombre.value && tipo.value) {
+        alert("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
         let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
         localStorage.setItem("jugador", JSON.stringify(perNuevo));
     } else {
