@@ -12,7 +12,7 @@ body {
     width: auto;
 }
 
-#contenedor-crearpersonaje{
+#contenedor-crearpersonaje {
     display: none;
 }
 
@@ -28,11 +28,11 @@ main {
     text-align: center;
     display: flex;
     align-items: center;
-    margin:auto;
+    margin: auto;
     justify-content: center;
 }
 
-#respuesta{
+#respuesta {
     display: none;
 }
 
@@ -57,13 +57,15 @@ legend {
     background: rgb(170, 170, 170);
     font-size: large;
     font-weight: bold;
+    padding: 0px 8px;
 }
 
-input, btn.boton {
+input,
+btn.boton {
     background: rgb(170, 170, 170);
     border: none;
     color: rgb(0, 0, 170);
-    padding: 6px 30px;
+    padding: 6px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -77,4 +79,33 @@ input, btn.boton {
 select#tipo {
     color: rgb(0, 0, 170);
     background: rgb(170, 170, 170);
+}
+
+.swal-overlay--show-modal .swal-modal {
+    opacity: 1;
+    pointer-events: auto;
+    box-sizing: border-box;
+    -webkit-animation: showSweetAlert .3s;
+    animation: showSweetAlert .3s;
+    will-change: transform;
+    background-color: rgb(0, 0, 170);
+}
+
+.swal-text:first-child {
+    margin-top: 45px;
+    color: rgb(174, 174, 170);
+    font-family: 'Overpass Mono', monospace !important;
+}
+
+.swal-button {
+    background-color: rgb(174, 174, 170);
+    color: rgb(0, 0, 170);
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    margin: 0;
+    cursor: pointer;
 }

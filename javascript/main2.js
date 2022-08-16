@@ -42,6 +42,36 @@ const tipoDePersonaje = [
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
 
+function borrarBtn() {
+    let btnEspada = document.getElementById("Espada-btn");
+    let btnArco = document.getElementById("Arco-btn");
+    let btnHacha = document.getElementById("Hacha-btn");
+    btnEspada.parentNode.removeChild(btnEspada);
+    btnArco.parentNode.removeChild(btnArco);
+    btnHacha.parentNode.removeChild(btnHacha);
+}
+
+function tienda() {
+    let jugador = JSON.parse(localStorage.getItem("jugador"));
+    titulosYTextos(titulos[3], textos[3]);
+    console.log("Estoy en el cielo si entro a la tiend");
+
+    (!jugador.verificarArmaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
+    let textoDineroDisponible = document.createElement("p");
+    textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
+    document.body.appendChild(textoDineroDisponible);
+    swal("Entre a la tienda");
+
+    let btnEspada = document.getElementById("Espada-btn");
+    btnEspada.onclick = () => {
+        jugador.equiparArma("Espada");
+        jugador.restarDinero(800);
+        borrarBtn();
+        swal("Pareciera que funciona");
+    };
+}
+
+/*
 function tienda() {
     let jugador = JSON.parse(localStorage.getItem("jugador"));
     titulosYTextos(titulos[3], textos[3]);
@@ -56,21 +86,21 @@ function tienda() {
         if (!jugador.verificarArmaEquipada) {
             switch (opcion) {
                 case "1":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : alert("Ya tenes el arma equipada");
+                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
                     break;
                 case "2":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : alert("Ya tenes el arma equipada");
+                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
                     break;
                 case "3":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : alert("Ya tenes el arma equipada");
+                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
                     break;
                 case "4":
-                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : alert("No tenes mas dinero disponible");
+                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : swal("No tenes mas dinero disponible");
                     break;
                 case "5":
                     return;
                 default:
-                    alert("La opcion selecionada no es correcta");
+                    swal("La opcion selecionada no es correcta");
                     break;
             }
         } else {
@@ -79,17 +109,17 @@ function tienda() {
             let opcion = document.getElementById("respuesta").value;
             switch (opcion) {
                 case "1":
-                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : alert("No tenes mas dinero disponible");
+                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : swal("No tenes mas dinero disponible");
                     return;
                 case "5":
                     return;
                 default:
-                    alert("La opcion selecionada no es correcta");
+                    swal("La opcion selecionada no es correcta");
                     break;
             }
         }
     }
-}
+}*/
 
 function boton(nombres) {
     for (const nombre of nombres) {
@@ -97,6 +127,7 @@ function boton(nombres) {
         let btn = document.createElement("btn");
         btn.innerText = nombre;
         btn.setAttribute("class", `boton`);
+        btn.setAttribute("id", `${nombre}-btn`);
         fieldset.appendChild(btn);
     }
 }
@@ -107,6 +138,7 @@ function botonObjetos(nombres) {
         let btn = document.createElement("btn");
         btn.innerText = nombre;
         btn.setAttribute("class", `boton`);
+        btn.setAttribute("id", `${nombres}-btn`);
         fieldset.appendChild(btn);
     }
 }
@@ -132,9 +164,17 @@ const opcionesMenuPrincipal = [
     "Salir"
 ]
 
+const opcionesTienda = [
+    "Espada",
+    "Arco",
+    "Hacha",
+    "Pocion",
+    "Volver"
+]
+
 const {
     nombre: names
- } = tipoDePersonaje;
+} = tipoDePersonaje;
 
 function menuPrincipal() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
@@ -142,7 +182,8 @@ function menuPrincipal() {
     document.getElementById("respuesta").style.display = 'inline';
     titulosYTextos(titulos[1], textos[1]);
     // Probando de crear los botones asi borro el input
-    localStorage.getItem("jugador") != null? boton(opcionesMenuPrincipal): console.log("Ya estan creados");
+
+    (!localStorage.getItem("jugador")) ? boton(opcionesMenuPrincipal) : console.log("Ya existe");
 
     let btn = document.getElementById("dato");
     let opcion = document.getElementById("respuesta");
@@ -170,11 +211,11 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     let tipo = document.getElementById('tipo');
     console.log(document.getElementById('tipo'));
     if (nombre.value && tipo.value) {
-        alert("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
+        swal("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
         let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
         localStorage.setItem("jugador", JSON.stringify(perNuevo));
     } else {
-        alert("Opcion invalida")
+        swal("Opcion invalida")
     }
     menuPrincipal();
 }
@@ -186,19 +227,19 @@ function pantallaBienvenida(opcion) {
             crearPersonaje();
             break;
         case "2":
-            localStorage.getItem("jugador") ? tienda() : alert("Aun no tenes el personaje creado, por favor crea tu personaje primero");
+            localStorage.getItem("jugador") ? tienda() : swal("Aun no tenes el personaje creado, por favor crea tu personaje primero");
             break;
         case "3":
-            localStorage.getItem("jugador") ? jugar() : alert("Aun no tenes el personaje creado, por favor crea tu personaje primero");
+            localStorage.getItem("jugador") ? jugar() : swal("Aun no tenes el personaje creado, por favor crea tu personaje primero");
             break;
         case "4":
-            alert("Gracias por jugar!");
+            swal("Gracias por jugar!");
             break;
         case "66":
             menuDeEnemigos();
             break;
         default:
-            alert("Opcion invalida, por favor seleccione una opcion correcta");
+            swal("Opcion invalida, por favor seleccione una opcion correcta");
 
     }
 }
@@ -214,7 +255,7 @@ function comprarPociones() {
     let jugador = JSON.parse(localStorage.getItem("jugador"));
     jugador.guardarPociones(1);
     jugador.restarDinero(25);
-    alert(`Tenes ${jugador.getCantPociones} pociones`);
+    swal(`Tenes ${jugador.getCantPociones} pociones`);
 }
 
 pantallaPrincipal();
