@@ -52,22 +52,35 @@ function borrarBtn() {
 }
 
 function tienda() {
+    //document.getElementById("contenedor").style.display = 'none';
+    let element1 = document.getElementById("respuesta");
+    element1.remove();
+    let element2 = document.getElementById("dato");
+    element2.remove();
     let jugador = JSON.parse(localStorage.getItem("jugador"));
-    titulosYTextos(titulos[3], textos[3]);
-    console.log("Estoy en el cielo si entro a la tiend");
-
-    (!jugador.verificarArmaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
+    
+    let div = document.getElementById("contenedor");
     let textoDineroDisponible = document.createElement("p");
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
-    document.body.appendChild(textoDineroDisponible);
+    div.appendChild(textoDineroDisponible);
+    
+    titulosYTextos(titulos[3], textos[3]);
+    (!jugador.verificarArmaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
     swal("Entre a la tienda");
 
     let btnEspada = document.getElementById("Espada-btn");
     btnEspada.onclick = () => {
-        jugador.equiparArma("Espada");
-        jugador.restarDinero(800);
-        borrarBtn();
-        swal("Pareciera que funciona");
+        equipamiento("Espada");
+    };
+
+    let btnArco = document.getElementById("Arco-btn");
+    btnArco.onclick = () => {
+        equipamiento("Arco");
+    };
+
+    let btnHacha = document.getElementById("Hacha-btn");
+    btnHacha.onclick = () => {
+        equipamiento("Hacha");
     };
 }
 
@@ -246,6 +259,7 @@ function pantallaBienvenida(opcion) {
 
 function equipamiento(arma) {
     let jugador = JSON.parse(localStorage.getItem("jugador"));
+    swal(`${jugador.nombre}`);
     jugador.restarDinero(800);
     jugador.equiparArma(arma);
     return;
