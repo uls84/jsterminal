@@ -56,7 +56,14 @@ function tienda() {
     // element1.remove();
     // let element2 = document.getElementById("dato");
     // element2.remove();
-    let jugador = JSON.parse(localStorage.getItem("jugador"));
+    let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
+    btnCrearPersonaje.remove();
+    let btnTienda = document.getElementById("Tienda-btn");
+    btnTienda.remove();
+    let btnJugar = document.getElementById("Jugar-btn");
+    btnJugar.remove();
+    let btnSalir= document.getElementById("Salir-btn");
+    btnSalir.remove();
 
     let div = document.getElementById("contenedor");
     let textoDineroDisponible = document.createElement("p");
@@ -80,6 +87,11 @@ function tienda() {
     btnHacha.onclick = () => {
         equipamiento("Hacha");
     };
+
+    let btnVolver= document.getElementById("Volver-btn");
+    btnVolver.onclick = () => {
+        menuPrincipal();
+    }
 }
 
 
@@ -156,9 +168,14 @@ function menuPrincipal() {
         tienda();
     };
 
-    let btnHacha = document.getElementById("Hacha-btn");
-    btnHacha.onclick = () => {
-        equipamiento("Hacha");
+    let btnJugar= document.getElementById("Jugar-btn");
+    btnJugar.onclick = () => {
+        jugar();
+    };
+
+    let btnSalir= document.getElementById("Salir-btn");
+    btnSalir.onclick = () => {
+        return swal("Gracias por jugar!");
     };
 }
 
