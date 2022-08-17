@@ -1,22 +1,20 @@
 let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto y la luna parece nunca abandonar estas tierras
     
     Has click para comenzar con el juego!`,
-    `Seleccione una de las siguientes opciones ingresando el numero a la izquierda
-        1- Crear el personaje
-        2- Ir a la tienda
-        3 - Jugar
-        4- Salir del juego`,
+    `Seleccione una de las siguientes opciones
+        1 - Debera crear el personaje.
+        2 - Luego debe equipar un arma y comprar pociones.
+        3 - Podra acceder al juego una vez que se hayan completado los pasos anteriores.`,
     `Bienvenido al menu secreto donde podra ver,editar e ingresar nuevos enemigos`,
-    `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste
+    `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste!
         1- Espada ===> 800R
         2- Arco ===> 800R
         3- Hacha ===> 800R
-        4- Pocion ===> 25R
-        5- Menu Principal`,
+        4- Pocion ===> 25R`,
     `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste
         1- Pocion ===> 25R
         5- Menu Principal`,
-    `Ingrese el numero que representa a la clase de personaje
+    `Ingrese el nombre para su personaje y seleccione un estilo de personaje.
         1- Guerrero
         2- Elfo
         3- Barbaro`];
@@ -42,6 +40,8 @@ const tipoDePersonaje = [
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
 
+let jugador = "";
+
 function borrarBtn() {
     let btnEspada = document.getElementById("Espada-btn");
     let btnArco = document.getElementById("Arco-btn");
@@ -52,21 +52,19 @@ function borrarBtn() {
 }
 
 function tienda() {
-    //document.getElementById("contenedor").style.display = 'none';
-    let element1 = document.getElementById("respuesta");
-    element1.remove();
-    let element2 = document.getElementById("dato");
-    element2.remove();
+    // let element1 = document.getElementById("respuesta");
+    // element1.remove();
+    // let element2 = document.getElementById("dato");
+    // element2.remove();
     let jugador = JSON.parse(localStorage.getItem("jugador"));
-    
+
     let div = document.getElementById("contenedor");
     let textoDineroDisponible = document.createElement("p");
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
     div.appendChild(textoDineroDisponible);
-    
+
     titulosYTextos(titulos[3], textos[3]);
     (!jugador.verificarArmaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
-    swal("Entre a la tienda");
 
     let btnEspada = document.getElementById("Espada-btn");
     btnEspada.onclick = () => {
@@ -84,55 +82,6 @@ function tienda() {
     };
 }
 
-/*
-function tienda() {
-    let jugador = JSON.parse(localStorage.getItem("jugador"));
-    titulosYTextos(titulos[3], textos[3]);
-    console.log("Estoy en el cielo si entro a la tiend");
-    let opcion = document.getElementById("respuesta").value;
-    let textoDineroDisponible = document.createElement("p");
-    textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
-    let recuadro = document.getElementById("contenedor");
-    recuadro.append(textoDineroDisponible);
-
-    while (opcion !== "5") {
-        if (!jugador.verificarArmaEquipada) {
-            switch (opcion) {
-                case "1":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
-                    break;
-                case "2":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
-                    break;
-                case "3":
-                    (jugador.getDineroDisponible >= 800) ? equipamiento(tipoDePersonaje[opcion - 1].arma) : swal("Ya tenes el arma equipada");
-                    break;
-                case "4":
-                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : swal("No tenes mas dinero disponible");
-                    break;
-                case "5":
-                    return;
-                default:
-                    swal("La opcion selecionada no es correcta");
-                    break;
-            }
-        } else {
-            titulosYTextos(titulos[3], textos[4]);
-            console.log("Estoy en el cielo si entro a la tiend");
-            let opcion = document.getElementById("respuesta").value;
-            switch (opcion) {
-                case "1":
-                    (jugador.getDineroDisponible >= 25) ? comprarPociones() : swal("No tenes mas dinero disponible");
-                    return;
-                case "5":
-                    return;
-                default:
-                    swal("La opcion selecionada no es correcta");
-                    break;
-            }
-        }
-    }
-}*/
 
 function boton(nombres) {
     for (const nombre of nombres) {
@@ -171,7 +120,7 @@ function pantallaPrincipal() {
 }
 
 const opcionesMenuPrincipal = [
-    "Crear personaje",
+    "Crear-personaje",
     "Tienda",
     "Jugar",
     "Salir"
@@ -192,25 +141,31 @@ const {
 function menuPrincipal() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     document.getElementById("contenedor").style.display = 'block';
-    document.getElementById("respuesta").style.display = 'inline';
     titulosYTextos(titulos[1], textos[1]);
-    // Probando de crear los botones asi borro el input
+    let btnContinuar = document.getElementById("dato");
+    btnContinuar.remove();
+    boton(opcionesMenuPrincipal);
 
-    (!localStorage.getItem("jugador")) ? boton(opcionesMenuPrincipal) : console.log("Ya existe");
+    let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
+    btnCrearPersonaje.onclick = () => {
+        crearPersonaje() ;
+    };
 
-    let btn = document.getElementById("dato");
-    let opcion = document.getElementById("respuesta");
+    let btnTienda = document.getElementById("Tienda-btn");
+    btnTienda.onclick = () => {
+        tienda();
+    };
 
-    console.log(opcion);
-    btn.onclick = () => pantallaBienvenida(opcion);
+    let btnHacha = document.getElementById("Hacha-btn");
+    btnHacha.onclick = () => {
+        equipamiento("Hacha");
+    };
 }
 
 
 function crearPersonaje() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
     document.getElementById("contenedor").style.display = 'none';
-    //agregar los tres botones de personaje aca
-    //boton(tipoDePersonaje);
     titulosYTextos(titulos[4], textos[5]);
     let textoCrearPersonaje = document.getElementById("textoPersonaje");
     textoCrearPersonaje.innerText = textos[5];
@@ -226,35 +181,12 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     if (nombre.value && tipo.value) {
         swal("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
         let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
+        personaje = perNuevo;
         localStorage.setItem("jugador", JSON.stringify(perNuevo));
     } else {
         swal("Opcion invalida")
     }
     menuPrincipal();
-}
-
-function pantallaBienvenida(opcion) {
-    console.log("Entre aca! y el valor de opcion es: " + opcion.value);
-    switch (opcion.value) {
-        case "1":
-            crearPersonaje();
-            break;
-        case "2":
-            localStorage.getItem("jugador") ? tienda() : swal("Aun no tenes el personaje creado, por favor crea tu personaje primero");
-            break;
-        case "3":
-            localStorage.getItem("jugador") ? jugar() : swal("Aun no tenes el personaje creado, por favor crea tu personaje primero");
-            break;
-        case "4":
-            swal("Gracias por jugar!");
-            break;
-        case "66":
-            menuDeEnemigos();
-            break;
-        default:
-            swal("Opcion invalida, por favor seleccione una opcion correcta");
-
-    }
 }
 
 function equipamiento(arma) {
