@@ -28,7 +28,7 @@ let enemigos = [
     { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Lanza" },
     { nombre: "Caballero", energia: 30, fuerza: 25, arma: "Espada" },
     { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
-    { nombre: "Ultima", energia: 60, fuerza: 50, arma: "Espada" },
+    //{ nombre: "Ultima", energia: 60, fuerza: 50, arma: "Espada" },
 ];
 
 const tipoDePersonaje = [
@@ -52,10 +52,6 @@ function borrarBtn() {
 }
 
 function tienda() {
-    // let element1 = document.getElementById("respuesta");
-    // element1.remove();
-    // let element2 = document.getElementById("dato");
-    // element2.remove();
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje.remove();
     let btnTienda = document.getElementById("Tienda-btn");
@@ -106,6 +102,7 @@ function boton(nombres) {
     }
 }
 
+/*
 function botonObjetos(nombres) {
     for (const nombre of nombres) {
         let fieldset = document.getElementById("contenedor");
@@ -116,6 +113,7 @@ function botonObjetos(nombres) {
         fieldset.appendChild(btn);
     }
 }
+*/
 
 function titulosYTextos(titulos, textos) {
     let tituloPagina = document.getElementById("tituloPagina");
@@ -150,6 +148,13 @@ const {
     nombre: names
 } = tipoDePersonaje;
 
+function salir(){
+    let cuerpo = document.getElementById("contenedor");
+    cuerpo.innerHTML = `<legend>Adios</legend>
+    <div id="breathing-button" ><h3>No lo has intentado.
+         Vuelve a ingresar por tu honor!</h3></div>`;
+}
+
 function menuPrincipal() {
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     document.getElementById("contenedor").style.display = 'block';
@@ -175,7 +180,7 @@ function menuPrincipal() {
 
     let btnSalir= document.getElementById("Salir-btn");
     btnSalir.onclick = () => {
-        return swal("Gracias por jugar!");
+        salir();
     };
 }
 

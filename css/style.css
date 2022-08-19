@@ -47,7 +47,8 @@ fieldset#contenedor-crearpersonaje {
 }
 
 p {
-    margin-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 12px;
     font-weight: bold;
     font-size: large;
 }
@@ -63,7 +64,8 @@ legend {
 input,
 btn.boton {
     background: rgb(170, 170, 170);
-    border: none;
+    border-style: outset;
+    border-width: 2px;
     color: rgb(0, 0, 170);
     padding: 6px 10px;
     text-align: center;
@@ -74,7 +76,21 @@ btn.boton {
     cursor: pointer;
 }
 
-
+input:hover,
+btn:hover {
+    background: rgb(180, 180, 180);
+    border-style: outset;
+    border-width: 2px;
+    border-color: rgb(27, 27, 27);
+    color: rgb(0, 0, 130);
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
 
 select#tipo {
     color: rgb(0, 0, 170);
@@ -95,17 +111,95 @@ select#tipo {
     margin-top: 45px;
     color: rgb(174, 174, 170);
     font-family: 'Overpass Mono', monospace !important;
+    font-weight: bold;
 }
 
 .swal-button {
     background-color: rgb(174, 174, 170);
     color: rgb(0, 0, 170);
     border: none;
-    box-shadow: none;
-    border-radius: 5px;
+    box-shadow: none;letter-spacing: normal;
     font-weight: 600;
     font-size: 14px;
     padding: 10px 24px;
     margin: 0;
     cursor: pointer;
 }
+
+.swal-button:hover {
+    background-color: rgb(174, 174, 170);
+    color: rgb(0, 0, 170);
+    border: none;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    margin: 0;
+    cursor: pointer;
+}
+
+#breathing-button {
+    width: 180px;
+    padding: 12px;
+    margin: 30px 226px;
+    -webkit-animation: breathing 5s ease-out infinite normal;
+    animation: breathing 5s ease-out infinite normal;
+    font-size: 16px;
+    /*background: #3cc8b4;*/
+    color: rgb(174, 174, 170);
+    -webkit-font-smoothing: antialiased;
+    border-radius: 2px;
+    text-align: center;    
+    }
+
+    @-webkit-keyframes breathing {
+        0% {
+          -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      
+        25% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      
+        60% {
+          -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      
+        100% {
+          -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      }
+      
+      @keyframes breathing {
+        0% {
+          -webkit-transform: scale(0.9);
+          -ms-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      
+        25% {
+          -webkit-transform: scale(1);
+          -ms-transform: scale(1);
+          transform: scale(1);
+        }
+      
+        60% {
+          -webkit-transform: scale(0.9);
+          -ms-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      
+        100% {
+          -webkit-transform: scale(0.9);
+          -ms-transform: scale(0.9);
+          transform: scale(0.9);
+        }
+      }
+      
+      div {
+        margin-top: 10px;
+    }
