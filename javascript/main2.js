@@ -19,6 +19,11 @@ let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto
         2- Elfo
         3- Barbaro`];
 
+let datosPersonaje = {
+    creado: false,
+    armaEquipada: false
+}
+
 let titulos = ["Inicio", "Menu", "Enemigos", "Tienda", "Crear Personaje", "Bosque"];
 
 let enemigos = [
@@ -51,7 +56,7 @@ function borrarBtn() {
     btnHacha.parentNode.removeChild(btnHacha);
 }
 
-function tienda() {
+function tienda(entrarEnLaFuncion.armaEquipada) {
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje.remove();
     let btnTienda = document.getElementById("Tienda-btn");
@@ -67,21 +72,25 @@ function tienda() {
     div.appendChild(textoDineroDisponible);
 
     titulosYTextos(titulos[3], textos[3]);
-    (!jugador.verificarArmaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
+    (!armaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
 
     let btnEspada = document.getElementById("Espada-btn");
     btnEspada.onclick = () => {
         equipamiento("Espada");
+        entrarEnLaFuncion.armaEquipada = true;
+
     };
 
     let btnArco = document.getElementById("Arco-btn");
     btnArco.onclick = () => {
         equipamiento("Arco");
+        entrarEnLaFuncion.armaEquipada = true;
     };
 
     let btnHacha = document.getElementById("Hacha-btn");
     btnHacha.onclick = () => {
         equipamiento("Hacha");
+        entrarEnLaFuncion.armaEquipada = true;
     };
 
     let btnVolver= document.getElementById("Volver-btn");
@@ -102,7 +111,7 @@ function boton(nombres) {
     }
 }
 
-/*
+/* Querias hacer una funcion para que arme los botones desde un objeto y no un array
 function botonObjetos(nombres) {
     for (const nombre of nombres) {
         let fieldset = document.getElementById("contenedor");
@@ -160,22 +169,24 @@ function menuPrincipal() {
     document.getElementById("contenedor").style.display = 'block';
     titulosYTextos(titulos[1], textos[1]);
     let btnContinuar = document.getElementById("dato");
-    btnContinuar.remove();
+    btnContinuar? btnContinuar.remove() : console.log("Ya se borro");
     boton(opcionesMenuPrincipal);
+    // NO SE SI LO TENDRIA QUE CREAR ACA
+    let entrarEnLaFuncion = JSON.parse(localStorage.getItem(datos));
 
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje.onclick = () => {
-        crearPersonaje() ;
+        crearPersonaje(entrarEnLaFuncion) ;
     };
 
     let btnTienda = document.getElementById("Tienda-btn");
     btnTienda.onclick = () => {
-        tienda();
+        entrarEnLaFuncion.creado? tienda() : swal("Personaje no creado, por favor seleccione la opcion crear personaje primero.");
     };
 
     let btnJugar= document.getElementById("Jugar-btn");
     btnJugar.onclick = () => {
-        jugar();
+        entrarEnLaFuncion.armaEquipada? jugar() : swal("El personaje no tiene un arma equipada, por favor ingrese en la tienda y compre un arma.");
     };
 
     let btnSalir= document.getElementById("Salir-btn");
@@ -185,7 +196,7 @@ function menuPrincipal() {
 }
 
 
-function crearPersonaje() {
+function crearPersonaje(entrarEnLaFuncion) {
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
     document.getElementById("contenedor").style.display = 'none';
     titulosYTextos(titulos[4], textos[5]);
@@ -204,7 +215,8 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
         swal("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
         let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
         personaje = perNuevo;
-        localStorage.setItem("jugador", JSON.stringify(perNuevo));
+        datosPersonaje.creado = true;
+        localStorage.setItem("datos", JSON.stringify(datosPersonaje));
     } else {
         swal("Opcion invalida")
     }
@@ -212,7 +224,7 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
 }
 
 function equipamiento(arma) {
-    let jugador = JSON.parse(localStorage.getItem("jugador"));
+    //let jugador = JSON.parse(localStorage.getItem("jugador"));
     swal(`${jugador.nombre}`);
     jugador.restarDinero(800);
     jugador.equiparArma(arma);
@@ -220,11 +232,15 @@ function equipamiento(arma) {
 }
 
 function comprarPociones() {
-    let jugador = JSON.parse(localStorage.getItem("jugador"));
+    //let jugador = JSON.parse(localStorage.getItem("jugador"));
     jugador.guardarPociones(1);
     jugador.restarDinero(25);
     swal(`Tenes ${jugador.getCantPociones} pociones`);
 }
+
+
+
+
 
 pantallaPrincipal();
 
