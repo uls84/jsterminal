@@ -19,13 +19,16 @@ let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto
         2- Elfo
         3- Barbaro`];
 
-let datosPersonaje = {
-    creado: false,
-    armaEquipada: false
+localStorage.clear();
+
+let config = {
+    accedeTienda: false,
+    puedeJugar: false
 }
 
 let titulos = ["Inicio", "Menu", "Enemigos", "Tienda", "Crear Personaje", "Bosque"];
 
+/*
 let enemigos = [
     { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Espada" },
     { nombre: "Murcielago", energia: 10, fuerza: 5, arma: "Mordida" },
@@ -34,7 +37,14 @@ let enemigos = [
     { nombre: "Caballero", energia: 30, fuerza: 25, arma: "Espada" },
     { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
     //{ nombre: "Ultima", energia: 60, fuerza: 50, arma: "Espada" },
-];
+];*/
+
+let enemigos;
+
+fetch('./mocks/enemigos.json')
+  .then(response => response.json())
+  .then(data => enemigos = data)
+  .catch(error => console.log(error));
 
 const tipoDePersonaje = [
     { nombre: "Guerrero", energia: 90, fuerza: 20, arma: "Espada" },
@@ -51,54 +61,70 @@ function borrarBtn() {
     let btnEspada = document.getElementById("Espada-btn");
     let btnArco = document.getElementById("Arco-btn");
     let btnHacha = document.getElementById("Hacha-btn");
-    btnEspada.parentNode.removeChild(btnEspada);
-    btnArco.parentNode.removeChild(btnArco);
-    btnHacha.parentNode.removeChild(btnHacha);
+    btnEspada && btnEspada.remove();
+    btnArco && btnArco.remove();
+    btnHacha && btnHacha.remove();
 }
 
-function tienda(entrarEnLaFuncion.armaEquipada) {
+function armar (arma, config) {
+    console.log('Armar--->', arma);
+    equipamiento(arma);
+    config.puedeJugar = true;
+    localStorage.setItem('datos', JSON.stringify(config));
+    borrarBtn();
+}
+
+function tienda() {
+    document.body.className='';
+    document.body.classList.add('tienda');
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
-    btnCrearPersonaje.remove();
+    btnCrearPersonaje && btnCrearPersonaje.remove();
     let btnTienda = document.getElementById("Tienda-btn");
-    btnTienda.remove();
+    btnTienda && btnTienda.remove();
     let btnJugar = document.getElementById("Jugar-btn");
-    btnJugar.remove();
+    btnJugar && btnJugar.remove();
     let btnSalir= document.getElementById("Salir-btn");
-    btnSalir.remove();
+    btnSalir && btnSalir.remove();
+
+    let config = JSON.parse(localStorage.getItem('datos'));
 
     let div = document.getElementById("contenedor");
-    let textoDineroDisponible = document.createElement("p");
+
+    //Actualiza el saldo de un parrafo existente, sino lo crea
+    let textoDineroDisponible = document.getElementById("dinero-actual") ? 
+                                    document.getElementById("dinero-actual") : 
+                                    document.createElement("p");
+    textoDineroDisponible.setAttribute("id", `dinero-actual`);
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
     div.appendChild(textoDineroDisponible);
 
     titulosYTextos(titulos[3], textos[3]);
-    (!armaEquipada) ? boton(opcionesTienda) : boton(opcionesTienda.slice(3));
+    console.log("tienda-->", config.puedeJugar);
+    //Creo los botones y si puedeJugar, osea que tiene el arma cargada borra los botones que no necesita
+    boton(opcionesTienda)
+    config.puedeJugar && borrarBtn()
 
     let btnEspada = document.getElementById("Espada-btn");
-    btnEspada.onclick = () => {
-        equipamiento("Espada");
-        entrarEnLaFuncion.armaEquipada = true;
-
-    };
+    btnEspada && (btnEspada.onclick = function() {armar("Espada", config)});
 
     let btnArco = document.getElementById("Arco-btn");
-    btnArco.onclick = () => {
-        equipamiento("Arco");
-        entrarEnLaFuncion.armaEquipada = true;
-    };
+    btnArco && (btnArco.onclick = function() {armar("Arco", config)});
 
     let btnHacha = document.getElementById("Hacha-btn");
-    btnHacha.onclick = () => {
-        equipamiento("Hacha");
-        entrarEnLaFuncion.armaEquipada = true;
-    };
+    btnHacha && (btnHacha.onclick = function() {armar("Hacha", config)});
+
+    let btnPocion = document.getElementById("Pocion-btn");
+    btnPocion.onclick = function() {comprarPociones()};
 
     let btnVolver= document.getElementById("Volver-btn");
     btnVolver.onclick = () => {
+        /*Borro todos los botones*/
+        btnPocion && btnPocion.remove();
+        btnVolver && btnVolver.remove();
+        borrarBtn();
         menuPrincipal();
     }
 }
-
 
 function boton(nombres) {
     for (const nombre of nombres) {
@@ -107,6 +133,9 @@ function boton(nombres) {
         btn.innerText = nombre;
         btn.setAttribute("class", `boton`);
         btn.setAttribute("id", `${nombre}-btn`);
+        if(document.getElementById(`${nombre}-btn`)) {
+            continue;
+        }
         fieldset.appendChild(btn);
     }
 }
@@ -165,6 +194,10 @@ function salir(){
 }
 
 function menuPrincipal() {
+    //Borro todas las clases y agrego donde estoy parado
+    document.body.className='';
+    document.body.classList.add('menu-principal');
+
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     document.getElementById("contenedor").style.display = 'block';
     titulosYTextos(titulos[1], textos[1]);
@@ -172,21 +205,21 @@ function menuPrincipal() {
     btnContinuar? btnContinuar.remove() : console.log("Ya se borro");
     boton(opcionesMenuPrincipal);
     // NO SE SI LO TENDRIA QUE CREAR ACA
-    let entrarEnLaFuncion = JSON.parse(localStorage.getItem(datos));
+    let config = JSON.parse(localStorage.getItem('datos'));
 
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje.onclick = () => {
-        crearPersonaje(entrarEnLaFuncion) ;
+        crearPersonaje(config) ;
     };
 
     let btnTienda = document.getElementById("Tienda-btn");
     btnTienda.onclick = () => {
-        entrarEnLaFuncion.creado? tienda() : swal("Personaje no creado, por favor seleccione la opcion crear personaje primero.");
+        (config && config.accedeTienda) ? tienda() : swal("Personaje no creado, por favor seleccione la opcion crear personaje primero.");
     };
 
     let btnJugar= document.getElementById("Jugar-btn");
     btnJugar.onclick = () => {
-        entrarEnLaFuncion.armaEquipada? jugar() : swal("El personaje no tiene un arma equipada, por favor ingrese en la tienda y compre un arma.");
+        (config && config.puedeJugar) ? jugar() : swal("El personaje no tiene un arma equipada, por favor ingrese en la tienda y compre un arma.");
     };
 
     let btnSalir= document.getElementById("Salir-btn");
@@ -196,7 +229,10 @@ function menuPrincipal() {
 }
 
 
-function crearPersonaje(entrarEnLaFuncion) {
+function crearPersonaje() {
+    document.body.className='';
+    document.body.classList.add('crear-personaje');
+
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
     document.getElementById("contenedor").style.display = 'none';
     titulosYTextos(titulos[4], textos[5]);
@@ -211,12 +247,12 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     console.log(document.getElementById('nombre'));
     let tipo = document.getElementById('tipo');
     console.log(document.getElementById('tipo'));
+
     if (nombre.value && tipo.value) {
         swal("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
-        let perNuevo = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
-        personaje = perNuevo;
-        datosPersonaje.creado = true;
-        localStorage.setItem("datos", JSON.stringify(datosPersonaje));
+        jugador = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
+        config.accedeTienda = true;
+        localStorage.setItem("datos", JSON.stringify(config));
     } else {
         swal("Opcion invalida")
     }
@@ -225,17 +261,35 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
 
 function equipamiento(arma) {
     //let jugador = JSON.parse(localStorage.getItem("jugador"));
-    swal(`${jugador.nombre}`);
-    jugador.restarDinero(800);
     jugador.equiparArma(arma);
-    return;
+    jugador.restarDinero(800);
+    console.log('jugador.dinero', jugador.dinero)
+    jugador.dinero ? 
+        swal(`Jugador ${jugador.nombre} gracias por comprar. Le queda ${jugador.dinero}`)
+    :
+        salir();
+
+    mostrarDineroActual();
 }
 
 function comprarPociones() {
     //let jugador = JSON.parse(localStorage.getItem("jugador"));
     jugador.guardarPociones(1);
     jugador.restarDinero(25);
-    swal(`Tenes ${jugador.getCantPociones} pociones`);
+    jugador.dinero ? 
+        swal(`Tenes ${jugador.getCantPociones} pociones. Le queda ${jugador.dinero}`)
+    :
+        swal(`Usted no tiene mas dinero`);
+    
+    mostrarDineroActual();
+}
+
+function mostrarDineroActual(){
+    let textoDineroDisponible = document.getElementById("dinero-actual") ? 
+                                    document.getElementById("dinero-actual") : 
+                                    document.createElement("p");
+    textoDineroDisponible.setAttribute("id", `dinero-actual`);
+    textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
 }
 
 
@@ -243,5 +297,3 @@ function comprarPociones() {
 
 
 pantallaPrincipal();
-
-

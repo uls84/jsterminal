@@ -1,0 +1,8 @@
+[
+    { "nombre": "Esqueleto", "energia": 20, "fuerza": 15, "arma": "Espada" },
+    { "nombre": "Murcielago", "energia": 10, "fuerza": 5, "arma": "Mordida" },
+    { "nombre": "Fantasma", "energia": 20, "fuerza": 10, "arma": "Ectoplasma" },
+    { "nombre": "Esqueleto", "energia": 20, "fuerza": 15, "arma": "Lanza" },
+    { "nombre": "Caballero", "energia": 30, "fuerza": 25, "arma": "Espada" },
+    { "nombre": "Cancerbero", "energia": 50, "fuerza": 45, "arma": "Mordida" }
+]

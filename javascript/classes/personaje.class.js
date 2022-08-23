@@ -45,6 +45,11 @@ class Personaje {
 
     restarDinero(dinero) {
         this.dinero -= dinero;
+        console.log(this.dinero);
+        if (this.dinero <= 0) {
+            console.log('no mas dinero')
+            this.dinero = false;
+        }
     }
 
     sumarDinero(dinero) {
