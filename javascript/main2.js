@@ -8,16 +8,20 @@ let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto
     `Bienvenido al menu secreto donde podra ver,editar e ingresar nuevos enemigos`,
     `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste!
         1- Espada ===> 800R
-        2- Arco ===> 800R
+        2- Daga ===> 800R
         3- Hacha ===> 800R
         4- Pocion ===> 25R`,
     `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste
         1- Pocion ===> 25R
         5- Menu Principal`,
     `Ingrese el nombre para su personaje y seleccione un estilo de personaje.
-        1- Guerrero
-        2- Elfo
-        3- Barbaro`];
+        1- Caballero Caido
+        2- Saqueador De Tumbas
+        3- Verdugo Errante`,
+    `La aventura comienza preparate a masacrar a tus oponentes, no dudes o seras devorado por los gusanos.`,
+    `Te adentras en la oscuridad de la cripta, percibes un olor nauseabundo seguido de un sonido.
+    Logras agacharte justo a tiempo para esquivar algo que apunto a tu cabeza.
+    Al levantarte lo ves erguido a punto de volver a atacar, es tu turno.`];
 
 localStorage.clear();
 
@@ -26,31 +30,33 @@ let config = {
     puedeJugar: false
 }
 
-let titulos = ["Inicio", "Menu", "Enemigos", "Tienda", "Crear Personaje", "Bosque"];
+let titulos = ["Inicio", "Menu", "Enemigos", "Tienda", "Crear Personaje", "Entrada de cripta", "Cripta"];
 
-/*
+
 let enemigos = [
     { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Espada" },
-    { nombre: "Murcielago", energia: 10, fuerza: 5, arma: "Mordida" },
-    { nombre: "Fantasma", energia: 20, fuerza: 10, arma: "Ectoplasma" },
-    { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Lanza" },
-    { nombre: "Caballero", energia: 30, fuerza: 25, arma: "Espada" },
+    { nombre: "Devorador de almas", energia: 10, fuerza: 5, arma: "Mordida" },
+    { nombre: "Espectro abismal", energia: 20, fuerza: 10, arma: "Alarido" },
+    { nombre: "Abominacion reptante", energia: 20, fuerza: 15, arma: "Lanza" },
+    { nombre: "Sucubo famelico", energia: 30, fuerza: 25, arma: "Garras" },
     { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
-    //{ nombre: "Ultima", energia: 60, fuerza: 50, arma: "Espada" },
-];*/
+];
 
+/* Hoy a la noche cuando lo suba al servidor pruebo bien esta parte
 let enemigos;
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
   .then(data => enemigos = data)
   .catch(error => console.log(error));
+  */
 
 const tipoDePersonaje = [
-    { nombre: "Guerrero", energia: 90, fuerza: 20, arma: "Espada" },
-    { nombre: "Elfo", energia: 100, fuerza: 15, arma: "Arco" },
-    { nombre: "Barbaro", energia: 85, fuerza: 25, arma: "Hacha" },
+    { nombre: "CaballeroCaido", energia: 90, fuerza: 20, arma: "Espada" },
+    { nombre: "SaqueadorDeTumbas", energia: 100, fuerza: 15, arma: "Daga" },
+    { nombre: "VerdugoErrante", energia: 85, fuerza: 25, arma: "Hacha" },
 ];
+
 
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
@@ -59,10 +65,10 @@ let jugador = "";
 
 function borrarBtn() {
     let btnEspada = document.getElementById("Espada-btn");
-    let btnArco = document.getElementById("Arco-btn");
+    let btnDaga = document.getElementById("Daga-btn");
     let btnHacha = document.getElementById("Hacha-btn");
     btnEspada && btnEspada.remove();
-    btnArco && btnArco.remove();
+    btnDaga && btnDaga.remove();
     btnHacha && btnHacha.remove();
 }
 
@@ -90,7 +96,6 @@ function tienda() {
 
     let div = document.getElementById("contenedor");
 
-    //Actualiza el saldo de un parrafo existente, sino lo crea
     let textoDineroDisponible = document.getElementById("dinero-actual") ? 
                                     document.getElementById("dinero-actual") : 
                                     document.createElement("p");
@@ -99,16 +104,15 @@ function tienda() {
     div.appendChild(textoDineroDisponible);
 
     titulosYTextos(titulos[3], textos[3]);
-    console.log("tienda-->", config.puedeJugar);
-    //Creo los botones y si puedeJugar, osea que tiene el arma cargada borra los botones que no necesita
+    //console.log("tienda-->", config.puedeJugar);
     boton(opcionesTienda)
     config.puedeJugar && borrarBtn()
 
     let btnEspada = document.getElementById("Espada-btn");
     btnEspada && (btnEspada.onclick = function() {armar("Espada", config)});
 
-    let btnArco = document.getElementById("Arco-btn");
-    btnArco && (btnArco.onclick = function() {armar("Arco", config)});
+    let btnDaga = document.getElementById("Daga-btn");
+    btnDaga && (btnDaga.onclick = function() {armar("Daga", config)});
 
     let btnHacha = document.getElementById("Hacha-btn");
     btnHacha && (btnHacha.onclick = function() {armar("Hacha", config)});
@@ -118,7 +122,6 @@ function tienda() {
 
     let btnVolver= document.getElementById("Volver-btn");
     btnVolver.onclick = () => {
-        /*Borro todos los botones*/
         btnPocion && btnPocion.remove();
         btnVolver && btnVolver.remove();
         borrarBtn();
@@ -176,10 +179,15 @@ const opcionesMenuPrincipal = [
 
 const opcionesTienda = [
     "Espada",
-    "Arco",
+    "Daga",
     "Hacha",
     "Pocion",
     "Volver"
+]
+
+const opcionesJugar = [
+    "Atacar",
+    "Pocion"
 ]
 
 const {
@@ -204,7 +212,7 @@ function menuPrincipal() {
     let btnContinuar = document.getElementById("dato");
     btnContinuar? btnContinuar.remove() : console.log("Ya se borro");
     boton(opcionesMenuPrincipal);
-    // NO SE SI LO TENDRIA QUE CREAR ACA
+
     let config = JSON.parse(localStorage.getItem('datos'));
 
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
@@ -259,8 +267,41 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     menuPrincipal();
 }
 
+function jugar(){
+    document.body.className='';
+    document.body.classList.add('jugar');
+    document.body.style.backgroundColor = 'black';
+    //document.body.style.color = 'black';
+    document.getElementById("contenedor-crearpersonaje").style.display = 'none';
+    titulosYTextos(titulos[5], textos[6]);
+
+    let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
+    btnCrearPersonaje && btnCrearPersonaje.remove();
+    document.getElementById("dinero-actual").style.display = 'none';
+    let btnAnteriores = document.querySelectorAll(".boton");
+    btnAnteriores.forEach(btnAnterior => {
+        btnAnterior.remove('boton');
+    });
+    let botonEntrar = ["Entrar"];
+    boton(botonEntrar);
+    let btnEntrar = document.getElementById("Entrar-btn");
+    btnEntrar.onclick = () => {
+        batalla();
+    }
+}
+
+function batalla() {
+    document.getElementById("Entrar-btn").remove();
+    titulosYTextos(titulos[6], textos[7]);
+    boton(opcionesJugar);
+    let btnAtacar = document.getElementById("Atacar-btn");
+    btnAtacar.onclick = () => {
+        jugador.atacar()
+    }
+
+}
+
 function equipamiento(arma) {
-    //let jugador = JSON.parse(localStorage.getItem("jugador"));
     jugador.equiparArma(arma);
     jugador.restarDinero(800);
     console.log('jugador.dinero', jugador.dinero)
@@ -273,7 +314,6 @@ function equipamiento(arma) {
 }
 
 function comprarPociones() {
-    //let jugador = JSON.parse(localStorage.getItem("jugador"));
     jugador.guardarPociones(1);
     jugador.restarDinero(25);
     jugador.dinero ? 
