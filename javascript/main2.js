@@ -271,7 +271,7 @@ function jugar(){
     document.body.className='';
     document.body.classList.add('jugar');
     document.body.style.backgroundColor = 'black';
-    //document.body.style.color = 'black';
+    document.getElementById("tituloPagina").style.color = 'black';
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     titulosYTextos(titulos[5], textos[6]);
 
@@ -284,6 +284,7 @@ function jugar(){
     });
     let botonEntrar = ["Entrar"];
     boton(botonEntrar);
+    document.getElementById("Entrar-btn").style.color = 'black'; 
     let btnEntrar = document.getElementById("Entrar-btn");
     btnEntrar.onclick = () => {
         batalla();
