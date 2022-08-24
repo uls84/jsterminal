@@ -3,6 +3,7 @@ class Personaje {
         this.nombre = nombre;
         this.tipo = tipo;
         this.dinero = 1000;
+        this.energia = 100;
         this.pociones = 0;
         this.armaEquipada = false;
         this.penalizacion = false;
@@ -40,7 +41,7 @@ class Personaje {
     // luego de atacar por primera vez tenes que tener las opciones de volver a atacar, ver la energia o que te diga que energia tenes y si queres tomar una pocion antes de atacar
 
     recibirDamage(fuerza) {
-        this.tipo.energia -= fuerza;
+        this.energia -= fuerza;
     }
 
     restarDinero(dinero) {
@@ -64,11 +65,15 @@ class Personaje {
         return this.pociones;
     }
 
+    get getEnergia() {
+        return this.energia;
+    }
+
     usarPocion() {
         if (this.pociones !== 0) {
-            this.tipo.vida += 25;
-            if (this.vida > 100) {
-                this.vida = 100;
+            this.energia += 25;
+            if (this.energia > 100) {
+                this.energia = 100;
             }
         }
     }

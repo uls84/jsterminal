@@ -42,14 +42,14 @@ let enemigos = [
     { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
 ];*/
 
-
+/*
 let enemigos;
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
   .then(data => enemigos = data)
   .catch(error => console.log(error));
-  
+  */
 
 const tipoDePersonaje = [
     { nombre: "CaballeroCaido", energia: 90, fuerza: 20, arma: "Espada" },
@@ -294,6 +294,10 @@ let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
 
 function batalla() {
     console.log(enemy);
+    console.log(enemy.nombre);
+    console.log(enemy.energia);
+    console.log(enemy.fuerza);
+    console.log(enemy.arma);
     document.getElementById("Entrar-btn").remove();
     titulosYTextos(titulos[6], textos[7]);
     boton(opcionesJugar);
@@ -305,9 +309,11 @@ function batalla() {
 }
 
 function ataque(enemy) {
+    console.log(jugador.energia);
     jugador.atacar(enemy);
     console.log(enemy.getEnergia);
-
+    console.log(enemy.energia);
+    console.log("te queda: " + jugador.getEnergia);
 }
 
 function equipamiento(arma) {
