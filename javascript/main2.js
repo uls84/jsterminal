@@ -32,7 +32,7 @@ let config = {
 
 let titulos = ["Inicio", "Menu", "Enemigos", "Tienda", "Crear Personaje", "Entrada de cripta", "Cripta"];
 
-
+/*
 let enemigos = [
     { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Espada" },
     { nombre: "Devorador de almas", energia: 10, fuerza: 5, arma: "Mordida" },
@@ -40,16 +40,16 @@ let enemigos = [
     { nombre: "Abominacion reptante", energia: 20, fuerza: 15, arma: "Lanza" },
     { nombre: "Sucubo famelico", energia: 30, fuerza: 25, arma: "Garras" },
     { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
-];
+];*/
 
-/* Hoy a la noche cuando lo suba al servidor pruebo bien esta parte
+
 let enemigos;
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
   .then(data => enemigos = data)
   .catch(error => console.log(error));
-  */
+  
 
 const tipoDePersonaje = [
     { nombre: "CaballeroCaido", energia: 90, fuerza: 20, arma: "Espada" },
@@ -73,7 +73,7 @@ function borrarBtn() {
     btnHacha && btnHacha.remove();
 }
 
-function armar (arma, config) {
+function armar(arma, config) {
     console.log('Armar--->', arma);
     equipamiento(arma);
     config.puedeJugar = true;
@@ -82,7 +82,7 @@ function armar (arma, config) {
 }
 
 function tienda() {
-    document.body.className='';
+    document.body.className = '';
     document.body.classList.add('tienda');
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje && btnCrearPersonaje.remove();
@@ -90,16 +90,16 @@ function tienda() {
     btnTienda && btnTienda.remove();
     let btnJugar = document.getElementById("Jugar-btn");
     btnJugar && btnJugar.remove();
-    let btnSalir= document.getElementById("Salir-btn");
+    let btnSalir = document.getElementById("Salir-btn");
     btnSalir && btnSalir.remove();
 
     let config = JSON.parse(localStorage.getItem('datos'));
 
     let div = document.getElementById("contenedor");
 
-    let textoDineroDisponible = document.getElementById("dinero-actual") ? 
-                                    document.getElementById("dinero-actual") : 
-                                    document.createElement("p");
+    let textoDineroDisponible = document.getElementById("dinero-actual") ?
+        document.getElementById("dinero-actual") :
+        document.createElement("p");
     textoDineroDisponible.setAttribute("id", `dinero-actual`);
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
     div.appendChild(textoDineroDisponible);
@@ -109,18 +109,18 @@ function tienda() {
     config.puedeJugar && borrarBtn()
 
     let btnEspada = document.getElementById("Espada-btn");
-    btnEspada && (btnEspada.onclick = function() {armar("Espada", config)});
+    btnEspada && (btnEspada.onclick = function () { armar("Espada", config) });
 
     let btnDaga = document.getElementById("Daga-btn");
-    btnDaga && (btnDaga.onclick = function() {armar("Daga", config)});
+    btnDaga && (btnDaga.onclick = function () { armar("Daga", config) });
 
     let btnHacha = document.getElementById("Hacha-btn");
-    btnHacha && (btnHacha.onclick = function() {armar("Hacha", config)});
+    btnHacha && (btnHacha.onclick = function () { armar("Hacha", config) });
 
     let btnPocion = document.getElementById("Pocion-btn");
-    btnPocion.onclick = function() {comprarPociones()};
+    btnPocion.onclick = function () { comprarPociones() };
 
-    let btnVolver= document.getElementById("Volver-btn");
+    let btnVolver = document.getElementById("Volver-btn");
     btnVolver.onclick = () => {
         btnPocion && btnPocion.remove();
         btnVolver && btnVolver.remove();
@@ -136,7 +136,7 @@ function boton(nombres) {
         btn.innerText = nombre;
         btn.setAttribute("class", `boton`);
         btn.setAttribute("id", `${nombre}-btn`);
-        if(document.getElementById(`${nombre}-btn`)) {
+        if (document.getElementById(`${nombre}-btn`)) {
             continue;
         }
         fieldset.appendChild(btn);
@@ -194,7 +194,7 @@ const {
     nombre: names
 } = tipoDePersonaje;
 
-function salir(){
+function salir() {
     let cuerpo = document.getElementById("contenedor");
     cuerpo.innerHTML = `<legend>Adios</legend>
     <div id="breathing-button" ><h3>No lo has intentado. Vuelve a ingresar por tu honor!</h3></div>`;
@@ -202,21 +202,21 @@ function salir(){
 
 function menuPrincipal() {
     //Borro todas las clases y agrego donde estoy parado
-    document.body.className='';
+    document.body.className = '';
     document.body.classList.add('menu-principal');
 
     document.getElementById("contenedor-crearpersonaje").style.display = 'none';
     document.getElementById("contenedor").style.display = 'block';
     titulosYTextos(titulos[1], textos[1]);
     let btnContinuar = document.getElementById("dato");
-    btnContinuar? btnContinuar.remove() : console.log("Ya se borro");
+    btnContinuar ? btnContinuar.remove() : console.log("Ya se borro");
     boton(opcionesMenuPrincipal);
 
     let config = JSON.parse(localStorage.getItem('datos'));
 
     let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
     btnCrearPersonaje.onclick = () => {
-        crearPersonaje(config) ;
+        crearPersonaje(config);
     };
 
     let btnTienda = document.getElementById("Tienda-btn");
@@ -224,12 +224,12 @@ function menuPrincipal() {
         (config && config.accedeTienda) ? tienda() : swal("Personaje no creado, por favor seleccione la opcion crear personaje primero.");
     };
 
-    let btnJugar= document.getElementById("Jugar-btn");
+    let btnJugar = document.getElementById("Jugar-btn");
     btnJugar.onclick = () => {
         (config && config.puedeJugar) ? jugar() : swal("El personaje no tiene un arma equipada, por favor ingrese en la tienda y compre un arma.");
     };
 
-    let btnSalir= document.getElementById("Salir-btn");
+    let btnSalir = document.getElementById("Salir-btn");
     btnSalir.onclick = () => {
         salir();
     };
@@ -237,7 +237,7 @@ function menuPrincipal() {
 
 
 function crearPersonaje() {
-    document.body.className='';
+    document.body.className = '';
     document.body.classList.add('crear-personaje');
 
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
@@ -266,8 +266,8 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     menuPrincipal();
 }
 
-function jugar(){
-    document.body.className='';
+function jugar() {
+    document.body.className = '';
     document.body.classList.add('jugar');
     document.body.style.backgroundColor = 'black';
     document.getElementById("tituloPagina").style.color = 'black';
@@ -283,24 +283,30 @@ function jugar(){
     });
     let botonEntrar = ["Entrar"];
     boton(botonEntrar);
-    document.getElementById("Entrar-btn").style.color = 'black'; 
+    document.getElementById("Entrar-btn").style.color = 'black';
     let btnEntrar = document.getElementById("Entrar-btn");
     btnEntrar.onclick = () => {
         batalla();
     }
 }
 
+let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
+
 function batalla() {
-    let enemy = new Enemigo("Espectro abismal", 20,10, "Alarido" );
     console.log(enemy);
     document.getElementById("Entrar-btn").remove();
     titulosYTextos(titulos[6], textos[7]);
     boton(opcionesJugar);
     let btnAtacar = document.getElementById("Atacar-btn");
+
     btnAtacar.onclick = () => {
-        jugador.atacar(enemy);
-        console.log(enemy.getEnergia);
+        ataque(enemy);
     }
+}
+
+function ataque(enemy) {
+    jugador.atacar(enemy);
+    console.log(enemy.getEnergia);
 
 }
 
@@ -308,9 +314,9 @@ function equipamiento(arma) {
     jugador.equiparArma(arma);
     jugador.restarDinero(800);
     console.log('jugador.dinero', jugador.dinero)
-    jugador.dinero ? 
+    jugador.dinero ?
         swal(`Jugador ${jugador.nombre} gracias por comprar. Le queda ${jugador.dinero}`)
-    :
+        :
         salir();
 
     mostrarDineroActual();
@@ -319,18 +325,18 @@ function equipamiento(arma) {
 function comprarPociones() {
     jugador.guardarPociones(1);
     jugador.restarDinero(25);
-    jugador.dinero ? 
+    jugador.dinero ?
         swal(`Tenes ${jugador.getCantPociones} pociones. Le queda ${jugador.dinero}`)
-    :
+        :
         swal(`Usted no tiene mas dinero`);
-    
+
     mostrarDineroActual();
 }
 
-function mostrarDineroActual(){
-    let textoDineroDisponible = document.getElementById("dinero-actual") ? 
-                                    document.getElementById("dinero-actual") : 
-                                    document.createElement("p");
+function mostrarDineroActual() {
+    let textoDineroDisponible = document.getElementById("dinero-actual") ?
+        document.getElementById("dinero-actual") :
+        document.createElement("p");
     textoDineroDisponible.setAttribute("id", `dinero-actual`);
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
 }
