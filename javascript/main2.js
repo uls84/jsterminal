@@ -201,7 +201,6 @@ function salir() {
 }
 
 function menuPrincipal() {
-    //Borro todas las clases y agrego donde estoy parado
     document.body.className = '';
     document.body.classList.add('menu-principal');
 
@@ -290,7 +289,7 @@ function jugar() {
     }
 }
 
-let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
+let enemy = new Enemigo("Espectro abismal", parseInt(20), parseInt(10), "Alarido");
 
 function batalla() {
     console.log(enemy);
@@ -301,18 +300,20 @@ function batalla() {
     document.getElementById("Entrar-btn").remove();
     titulosYTextos(titulos[6], textos[7]);
     boton(opcionesJugar);
+    document.getElementById("Atacar-btn").style.color = 'black';
+    document.getElementById("Pocion-btn").style.color = 'black';
     let btnAtacar = document.getElementById("Atacar-btn");
-
     btnAtacar.onclick = () => {
         ataque(enemy);
+        swal(`Al enemigo le queda ${enemy.energia}`)
     }
 }
 
 function ataque(enemy) {
-    console.log(jugador.energia);
+    console.log(`Energia del jugador antes de atacar ${jugador.energia}`);
     jugador.atacar(enemy);
-    console.log(enemy.getEnergia);
-    console.log(enemy.energia);
+    console.log(`Energia del enamigo por el metodo ${enemy.getEnergia}`);
+    console.log(`Energia del enemigo ${parseInt(enemy.energia)}`);
     console.log("te queda: " + jugador.getEnergia);
 }
 
@@ -334,7 +335,7 @@ function comprarPociones() {
     jugador.dinero ?
         swal(`Tenes ${jugador.getCantPociones} pociones. Le queda ${jugador.dinero}`)
         :
-        swal(`Usted no tiene mas dinero`);
+        swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
 
     mostrarDineroActual();
 }
