@@ -7,9 +7,13 @@ class Enemigo {
         this.arma=arma;
     }
 
-    atacar(fuerza) {
+    damage(fuerza) {
         this.energia-=fuerza;
     }
 
+
+    get getEnergia() {
+        return this.energia;
+    }
 }
 

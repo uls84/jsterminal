@@ -57,9 +57,10 @@ const tipoDePersonaje = [
     { nombre: "VerdugoErrante", energia: 85, fuerza: 25, arma: "Hacha" },
 ];
 
-
+/* Esto lo borramos luego
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
+*/
 
 let jugador = "";
 
@@ -104,7 +105,6 @@ function tienda() {
     div.appendChild(textoDineroDisponible);
 
     titulosYTextos(titulos[3], textos[3]);
-    //console.log("tienda-->", config.puedeJugar);
     boton(opcionesTienda)
     config.puedeJugar && borrarBtn()
 
@@ -197,8 +197,7 @@ const {
 function salir(){
     let cuerpo = document.getElementById("contenedor");
     cuerpo.innerHTML = `<legend>Adios</legend>
-    <div id="breathing-button" ><h3>No lo has intentado.
-         Vuelve a ingresar por tu honor!</h3></div>`;
+    <div id="breathing-button" ><h3>No lo has intentado. Vuelve a ingresar por tu honor!</h3></div>`;
 }
 
 function menuPrincipal() {
@@ -292,12 +291,15 @@ function jugar(){
 }
 
 function batalla() {
+    let enemy = new Enemigo("Espectro abismal", 20,10, "Alarido" );
+    console.log(enemy);
     document.getElementById("Entrar-btn").remove();
     titulosYTextos(titulos[6], textos[7]);
     boton(opcionesJugar);
     let btnAtacar = document.getElementById("Atacar-btn");
     btnAtacar.onclick = () => {
-        jugador.atacar()
+        jugador.atacar(enemy);
+        console.log(enemy.getEnergia);
     }
 
 }

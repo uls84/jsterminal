@@ -27,9 +27,9 @@ class Personaje {
 
     atacar(enemigo) {
         if (this.penalizacion) {
-            enemigo.atacar(this.fuerza -= 5)
+            enemigo.damage(this.fuerza -= 5);
         } else {
-            enemigo.atacar(tipo.fuerza);
+            enemigo.damage(this.tipo.fuerza);
             if (enemigo.energia > 0) {
                 recibirDamage(enemigo.fuerza);
             } else {
