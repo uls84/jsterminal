@@ -289,14 +289,9 @@ function jugar() {
     }
 }
 
-let enemy = new Enemigo("Espectro abismal", parseInt(20), parseInt(10), "Alarido");
+let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
 
 function batalla() {
-    console.log(enemy);
-    console.log(enemy.nombre);
-    console.log(enemy.energia);
-    console.log(enemy.fuerza);
-    console.log(enemy.arma);
     document.getElementById("Entrar-btn").remove();
     titulosYTextos(titulos[6], textos[7]);
     boton(opcionesJugar);
@@ -305,16 +300,51 @@ function batalla() {
     let btnAtacar = document.getElementById("Atacar-btn");
     btnAtacar.onclick = () => {
         ataque(enemy);
-        swal(`Al enemigo le queda ${enemy.energia}`)
+        swal(`Al enemigo le queda ${enemy.energia}`);
+        cargaEscenario();
     }
 }
 
 function ataque(enemy) {
-    console.log(`Energia del jugador antes de atacar ${jugador.energia}`);
+    if (enemy.energia>= 0) {
     jugador.atacar(enemy);
-    console.log(`Energia del enamigo por el metodo ${enemy.getEnergia}`);
-    console.log(`Energia del enemigo ${parseInt(enemy.energia)}`);
     console.log("te queda: " + jugador.getEnergia);
+    } else if(enemy.energia <= 0) {
+        console.log("El enemigo murio");
+        return;
+    }
+}
+
+let escenarios = [
+"cripta","pasillo","caverna"
+]
+
+// cambiar los textos para que sean neutros
+
+let escenariosTexto = [
+`Al caer muerto el impacto del cuerpo contra el suelo genero un temblor y a lo lejos un sonido de algo desmoronandose te paraliza.
+Tomas coraje y decides explorar el origen de aquel sonido que te helo la sangre.
+Te mueves de manera lenta y pausada porque no sabes que puede merodear en la cripta.
+Al avanzar te encuentras con un agujero, los escrombros a su alrededor fueron lo que genero aquel sonido, decides entrar en el pero primero introduces la linterna para iluminar el espacio.`,
+`El ultimo encuentro te dejo agitado y sudado, te cuesta retomar el aire pero has de seguir avanzando.
+Miras a tu alrededor intentando decidir para que lado ir, pero te decides por seguir derecho.
+Mientras avanzas en la oscuridad las paredes que te rodeaban comienzan a estar mas y mas cerca hasta que se convierten en un pasillo de roca.
+Te encuentras con un hedor nauseabundo,decides taparte las fosas nasales con un trapo para no respirarlo y continuas avanzando.`,
+`Otro enemigo mas que cae al suelo, la ultima estocada te dejo cansado pero la adrenalina sigue corriendo por tus venas.
+Sigues sintiendo que hay mas peligro por delante pese al miedo, una leve sonrisa se asoma en tu rostro mientras te limpias la sangre del mismo.
+Tomas la linterna del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.` 
+]
+
+function cargaEscenario() {
+    let numero = Math.floor(Math.random() * escenarios.length + 1);
+    titulosYTextos(escenarios[numero], escenariosTexto[numero]);
+    let botonEntrar = ["Entrar"];
+    boton(botonEntrar);
+    document.getElementById("Entrar-btn").style.color = 'black';
+    let btnEntrar = document.getElementById("Entrar-btn");
+    btnEntrar.onclick = () => {
+        batalla();
+    }
 }
 
 function equipamiento(arma) {

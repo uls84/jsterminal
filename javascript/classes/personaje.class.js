@@ -7,8 +7,52 @@ class Personaje {
     this.pociones = 0;
     this.armaEquipada = false;
     this.penalizacion = false;
+    this.arma = "";
   }
 
+  // Si funciona lo dejamos sino borramos este bloque
+
+  equiparArma(arma) {
+    if (this.tipo.arma === arma) {
+      this.armaEquipada = true;
+      this.arma = arma;
+    } else {
+      this.armaEquipada = true;
+      this.penalizacion = true;
+      this.arma = arma;
+    }
+  }
+
+  atacar(enemigo) {
+    if (this.penalizacion) {
+      if (enemigo.energia > 0) {
+        enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
+        console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } else {
+        if (enemigo.energia <= 0) {
+          console.log(`El enemigo esta muerto`);
+          return;
+        }
+      }
+    } else {
+      if (enemigo.energia > 0) {
+        enemigo.damage(parseInt(this.tipo.fuerza));
+        console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } else {
+        if (enemigo.energia <= 0) {
+          console.log(`El enemigo esta muerto`);
+          return;
+        }
+      }
+    }
+  }
+  /*
   equiparArma(arma) {
     if (this.tipo.arma === arma) {
       this.armaEquipada = true;
@@ -16,7 +60,7 @@ class Personaje {
       this.armaEquipada = true;
       this.penalizacion = true;
     }
-  }
+  }*/
 
   get getDineroDisponible() {
     return this.dinero;
@@ -26,18 +70,6 @@ class Personaje {
     return this.armaEquipada;
   }
 
-  atacar(enemigo) {
-    if (this.penalizacion) {
-      enemigo.damage(parseInt(this.fuerza -= 5));
-    } else {
-      enemigo.damage(parseInt(this.tipo.fuerza));
-      if (enemigo.energia > 0) {
-        recibirDamage(enemigo.fuerza);
-      } else {
-        return `${enemigo.nombre} ha muerto`;
-      }
-    }
-  }
   // luego de atacar por primera vez tenes que tener las opciones de volver a atacar, ver la energia o que te diga que energia tenes y si queres tomar una pocion antes de atacar
 
   recibirDamage(fuerza) {
