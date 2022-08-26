@@ -1,24 +1,46 @@
-let textos = [`Bienvenido a las tierras abandonadas donde el bien jamas es visto y la luna parece nunca abandonar estas tierras
-    
-    Has click para comenzar con el juego!`,
-    `Seleccione una de las siguientes opciones
+let textos = [
+    `Te despiertas luego de un largo sueño, es de noche, aun hay algunos restos de la fogata encendidos.
+    No recuerdas como has llegado pero algo dentro tuyo quiere gritar y desviarte del camino.
+    Te has adentrado en las tierras abandonadas, donde la luna parece nunca abandonar el cielo, no recuerdas cuando fue la ultima vez que viste el sol.
+    Sientes que el fuego te protege, las sombras parecen albergar algo que siempre espera que te acerques para hacerte desaparecer.
+    Tomas el viejo candelabro y decides prender las velas para continuar con tu viaje.
+
+    Has click para sumergirte en la oscuridad.`,
+
+    `Mientras avanzas por un descampado a lo lejos ves unas luces rojas pequeñas, puede ser otra fogata? un campamento?
+    Quieres apretar la empuñadura del arma pero te das cuenta que no tienes ninguna, donde esta? suspiras.
+    Decides avanzas hasta que llegas a un panel grande de madera donde esta escrito
+
+    Por favor siga estos consejos para disfrutar de una mejor experiencia:
         1 - Debera crear el personaje.
         2 - Luego debe equipar un arma y comprar pociones.
-        3 - Podra acceder al juego una vez que se hayan completado los pasos anteriores.`,
-    `Bienvenido al menu secreto donde podra ver,editar e ingresar nuevos enemigos`,
-    `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste!
-        1- Espada ===> 800R
-        2- Daga ===> 800R
-        3- Hacha ===> 800R
-        4- Pocion ===> 25R`,
-    `Bienvenido a la tienda por favor compre un arma y luego compre las pociones que guste
-        1- Pocion ===> 25R
-        5- Menu Principal`,
-    `Ingrese el nombre para su personaje y seleccione un estilo de personaje.
-        1- Caballero Caido
-        2- Saqueador De Tumbas
-        3- Verdugo Errante`,
-    `La aventura comienza preparate a masacrar a tus oponentes, no dudes o seras devorado por los gusanos.`,
+        3 - Podra comenzar una vez que se hayan completado los pasos anteriores.`,
+
+    `A la izquierda ves a alguien encapuchado sentado detras de una mesa, dos velas iluminan los dos puntos opuestos de la mesa.
+    Una exibicion de armas y frascos con liquidos sobre la misma.
+    El rostro de la persona esta oculto por la capucha pero parte de sus mejillas son iluminadas por las velas.
+    Decides acercarte para preguntar por las armas cuando te habla:
+    - Mmm puedo leer en tus ojos que la muerte te sonrie, por favor adquiera alguna de las siguientes armas y no olvide las pociones!
+    Es peligroso andar por ahi solo.
+        
+        Espada ===> 800R
+        Daga ===> 800R
+        Hacha ===> 800R
+        Pocion ===> 25R`,
+
+    `Veo que aun no ha adquirido pociones, por favor tome las que necesite.
+        
+        Pocion ===> 25R
+        Menu Principal`,
+
+    `Tratas de recordar cual era tu nombre, sientes una niebla mental,cual era tu proposito?
+    Que era lo que hacias previamente a este momento? 
+    Como has llegado a este punto?
+    Tratas de pensar y lo unico que recuerdas es...`,
+
+    `Llegas a la puerta de una cripta, no recuerdas bien porque pero sabes que debes adentrarte en la misma para lograr el proposito, pero cual es el proposito?
+    La memoria no te esta dando una buena pasada, mientras mas fuerte haces el esfuerzo por recordar mas dificil parece ser recordarlo.
+    Sabes sin embargo que dentro las personas que no tomen el riesgo necesario seran comida de gusanos.`,
     `Te adentras en la oscuridad de la cripta, percibes un olor nauseabundo seguido de un sonido.
     Logras agacharte justo a tiempo para esquivar algo que apunto a tu cabeza.
     Al levantarte lo ves erguido a punto de volver a atacar, es tu turno.`];
@@ -71,6 +93,7 @@ function borrarBtn() {
     btnEspada && btnEspada.remove();
     btnDaga && btnDaga.remove();
     btnHacha && btnHacha.remove();
+    titulosYTextos(titulos[3], textos[3]);
 }
 
 function armar(arma, config) {
@@ -104,7 +127,7 @@ function tienda() {
     textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
     div.appendChild(textoDineroDisponible);
 
-    titulosYTextos(titulos[3], textos[3]);
+    titulosYTextos(titulos[3], textos[2]);
     boton(opcionesTienda)
     config.puedeJugar && borrarBtn()
 
@@ -142,19 +165,6 @@ function boton(nombres) {
         fieldset.appendChild(btn);
     }
 }
-
-/* Querias hacer una funcion para que arme los botones desde un objeto y no un array
-function botonObjetos(nombres) {
-    for (const nombre of nombres) {
-        let fieldset = document.getElementById("contenedor");
-        let btn = document.createElement("btn");
-        btn.innerText = nombre;
-        btn.setAttribute("class", `boton`);
-        btn.setAttribute("id", `${nombres}-btn`);
-        fieldset.appendChild(btn);
-    }
-}
-*/
 
 function titulosYTextos(titulos, textos) {
     let tituloPagina = document.getElementById("tituloPagina");
@@ -241,7 +251,7 @@ function crearPersonaje() {
 
     document.getElementById("contenedor-crearpersonaje").style.display = 'block';
     document.getElementById("contenedor").style.display = 'none';
-    titulosYTextos(titulos[4], textos[5]);
+    titulosYTextos(titulos[4], textos[4]);
     let textoCrearPersonaje = document.getElementById("textoPersonaje");
     textoCrearPersonaje.innerText = textos[5];
     let tituloCrearPersonaje = document.getElementById("tituloPersonaje");
@@ -255,7 +265,7 @@ document.getElementById('btn_crearpersonaje').onclick = function () {
     console.log(document.getElementById('tipo'));
 
     if (nombre.value && tipo.value) {
-        swal("Has seleccionado un " + tipo.options[tipo.selectedIndex].text);
+        swal(`Tu nombre viene a tu mente ${nombre.value} y pareces recordar que previamente eras un ` + tipo.options[tipo.selectedIndex].text);
         jugador = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
         config.accedeTienda = true;
         localStorage.setItem("datos", JSON.stringify(config));
@@ -280,6 +290,7 @@ function jugar() {
     btnAnteriores.forEach(btnAnterior => {
         btnAnterior.remove('boton');
     });
+    
     let botonEntrar = ["Entrar"];
     boton(botonEntrar);
     document.getElementById("Entrar-btn").style.color = 'black';
@@ -293,7 +304,7 @@ let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
 
 function batalla() {
     document.getElementById("Entrar-btn").remove();
-    titulosYTextos(titulos[6], textos[7]);
+    titulosYTextos(titulos[6], textos[5]);
     boton(opcionesJugar);
     document.getElementById("Atacar-btn").style.color = 'black';
     document.getElementById("Pocion-btn").style.color = 'black';
@@ -306,37 +317,48 @@ function batalla() {
 }
 
 function ataque(enemy) {
-    if (enemy.energia>= 0) {
-    jugador.atacar(enemy);
-    console.log("te queda: " + jugador.getEnergia);
-    } else if(enemy.energia <= 0) {
-        console.log("El enemigo murio");
-        return;
+    while (enemy.energia > 0) {
+        if (enemy.energia >= 0) {
+            jugador.atacar(enemy);
+            console.log("te queda: " + jugador.getEnergia);
+        } else if (enemy.energia <= 0) {
+            console.log("El enemigo murio");
+            return;
+        }
     }
 }
 
 let escenarios = [
-"cripta","pasillo","caverna"
+    "Cripta", "Pasillo", "Caverna", "Gruta"
 ]
 
-// cambiar los textos para que sean neutros
-
 let escenariosTexto = [
-`Al caer muerto el impacto del cuerpo contra el suelo genero un temblor y a lo lejos un sonido de algo desmoronandose te paraliza.
+    `Al caer muerto el impacto del cuerpo contra el suelo genero un temblor y a lo lejos un sonido de algo desmoronandose te paraliza.
 Tomas coraje y decides explorar el origen de aquel sonido que te helo la sangre.
 Te mueves de manera lenta y pausada porque no sabes que puede merodear en la cripta.
-Al avanzar te encuentras con un agujero, los escrombros a su alrededor fueron lo que genero aquel sonido, decides entrar en el pero primero introduces la linterna para iluminar el espacio.`,
-`El ultimo encuentro te dejo agitado y sudado, te cuesta retomar el aire pero has de seguir avanzando.
-Miras a tu alrededor intentando decidir para que lado ir, pero te decides por seguir derecho.
-Mientras avanzas en la oscuridad las paredes que te rodeaban comienzan a estar mas y mas cerca hasta que se convierten en un pasillo de roca.
+Al avanzar te encuentras con un agujero, los escrombros a su alrededor fueron lo que generaron aquel sonido,
+decides entrar en el pero primero introduces el candelabro para iluminar el espacio.`,
+
+    `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra humeda y ciertos restos de huesos.
+La luz de el candelabro comienza a iluminar cada vez mas mientras los muros van cerrandose lentamente y comienzas a ponerte nervioso.
+Llegas al punto donde la unica manera de pasar es poniendote de perfil y raspandote las mejillas, hasta un punto donde ya no pasas.
+El miedo se apodera, las velas del candelabro comienzan a apagarse, el viento en el rostro te dio algo de esperanza.
+Decides avanzar de todos modos y logras pasar el punto mas angosto, unas gotas de sangre te corren por las mejillas pero no importa, piensas que lo peor ya ha pasado.`,
+
+    `El ultimo encuentro te dejo agitado y sudado, te encuentras con dificultad para respirar pero has de seguir avanzando.
+Miras a tu alrededor intentando decidir que camino tomar, pero te decides por seguir derecho.
+Mientras avanzas en la oscuridad las paredes que te rodeaban comienzan a estar mas y mas cerca hasta que se convierten en un pasillo rocoso.
 Te encuentras con un hedor nauseabundo,decides taparte las fosas nasales con un trapo para no respirarlo y continuas avanzando.`,
-`Otro enemigo mas que cae al suelo, la ultima estocada te dejo cansado pero la adrenalina sigue corriendo por tus venas.
+
+    `Otro enemigo mas que cae al suelo, la ultima estocada te dejo cansado pero la adrenalina sigue corriendo por tus venas.
 Sigues sintiendo que hay mas peligro por delante pese al miedo, una leve sonrisa se asoma en tu rostro mientras te limpias la sangre del mismo.
-Tomas la linterna del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.` 
+Tomas el candelabro del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.`
 ]
 
 function cargaEscenario() {
-    let numero = Math.floor(Math.random() * escenarios.length + 1);
+    document.getElementById("Atacar-btn").remove();
+    document.getElementById("Pocion-btn").remove();
+    let numero = Math.floor(Math.random() * escenarios.length);
     titulosYTextos(escenarios[numero], escenariosTexto[numero]);
     let botonEntrar = ["Entrar"];
     boton(botonEntrar);

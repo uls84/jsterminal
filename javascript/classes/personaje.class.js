@@ -52,15 +52,6 @@ class Personaje {
       }
     }
   }
-  /*
-  equiparArma(arma) {
-    if (this.tipo.arma === arma) {
-      this.armaEquipada = true;
-    } else if (this.tipo.arma !== arma) {
-      this.armaEquipada = true;
-      this.penalizacion = true;
-    }
-  }*/
 
   get getDineroDisponible() {
     return this.dinero;
@@ -69,8 +60,6 @@ class Personaje {
   get verificarArmaEquipada() {
     return this.armaEquipada;
   }
-
-  // luego de atacar por primera vez tenes que tener las opciones de volver a atacar, ver la energia o que te diga que energia tenes y si queres tomar una pocion antes de atacar
 
   recibirDamage(fuerza) {
     this.energia -= fuerza;
