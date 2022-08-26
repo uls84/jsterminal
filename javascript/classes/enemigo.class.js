@@ -4,10 +4,14 @@ class Enemigo {
     this.energia = energia;
     this.fuerza = fuerza;
     this.arma = arma;
+    this.muerto = false;
   }
 
   damage(fuerza) {
     this.energia -= fuerza;
+    if (this.energia <= 0) {
+      this.muerto = true;
+    } 
   }
 
   get getEnergia() {

@@ -25,14 +25,14 @@ class Personaje {
 
   atacar(enemigo) {
     if (this.penalizacion) {
-      if (enemigo.energia > 0) {
+      if ( !enemigo.muerto) {
         enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
         console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
         this.recibirDamage(enemigo.fuerza);
         console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
         console.log(`Te queda ${this.energia} de vida`);
       } else {
-        if (enemigo.energia <= 0) {
+        if (!enemigo.muerto) {
           console.log(`El enemigo esta muerto`);
           return;
         }
