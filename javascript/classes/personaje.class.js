@@ -24,34 +24,26 @@ class Personaje {
   }
 
   atacar(enemigo) {
-    if (this.penalizacion) {
-      if ( !enemigo.muerto) {
-        enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
-        console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
-        this.recibirDamage(enemigo.fuerza);
-        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
-        console.log(`Te queda ${this.energia} de vida`);
-      } else {
-        if (!enemigo.muerto) {
-          console.log(`El enemigo esta muerto`);
-          return;
-        }
-      }
+    if (!enemigo.muerto && this.penalizacion) {
+      enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
+      console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
+      this.recibirDamage(enemigo.fuerza);
+      console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+      console.log(`Te queda ${this.energia} de vida`);
+    } else if (!enemigo.muerto) {
+      enemigo.damage(parseInt(this.tipo.fuerza));
+      console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
+      this.recibirDamage(enemigo.fuerza);
+      console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+      console.log(`Te queda ${this.energia} de vida`);
     } else {
-      if (enemigo.energia > 0) {
-        enemigo.damage(parseInt(this.tipo.fuerza));
-        console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
-        this.recibirDamage(enemigo.fuerza);
-        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
-        console.log(`Te queda ${this.energia} de vida`);
-      } else {
-        if (enemigo.energia <= 0) {
-          console.log(`El enemigo esta muerto`);
-          return;
-        }
-      }
+      console.log(`El enemigo esta muerto`);
+      enemigo.muerto = true;
+      return;
     }
   }
+
+
 
   get getDineroDisponible() {
     return this.dinero;

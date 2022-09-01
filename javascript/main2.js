@@ -9,7 +9,7 @@ let textos = [
 
   `Mientras avanzas por un descampado a lo lejos ves unas luces rojas pequeñas, puede ser otra fogata? un campamento?
     Quieres apretar la empuñadura del arma pero te das cuenta que no tienes ninguna, donde esta? suspiras.
-    Decides avanzas hasta que llegas a un panel grande de madera donde esta escrito
+    Decides avanzar hasta que llegas a un panel grande de madera donde esta escrito
 
     Por favor siga estos consejos para disfrutar de una mejor experiencia:
         1 - Debera crear el personaje.
@@ -100,14 +100,14 @@ let enemigos = [
 
 let enemys = [];
 
-function clusterEnemigos(enemigos) {
+function crearArrayDeEnemigos(enemigos) {
   for (let enemigo of enemigos) {
     let enemy = new Enemigo(enemigo[0], enemigo[1], enemigo[2], enemigo[3]);
     console.log(enemy);
     enemys.push(enemy);
   }
 }
-clusterEnemigos(enemigos);
+crearArrayDeEnemigos(enemigos);
 
 
 /* Esto lo borramos luego
@@ -133,6 +133,7 @@ function armar(arma, config) {
   config.puedeJugar = true;
   localStorage.setItem("datos", JSON.stringify(config));
   borrarBtn();
+  console.log("Entre a armar");
 }
 
 function tienda() {
@@ -232,8 +233,12 @@ const { nombre: names } = tipoDePersonaje;
 
 function salir() {
   let cuerpo = document.getElementById("contenedor");
-  cuerpo.innerHTML = `<legend>Adios</legend>
-    <div><h3>No lo has intentado. Vuelve a ingresar por tu honor!</h3></div>`;
+  cuerpo.innerHTML = `<legend>Has muerto</legend>
+    <div><P>Todo esta negro, sólo sientes el viento correr por tu rostro, comienzas a olvidar cómo has llegado a ese punto.
+            Mientras la llama de esperanza desaparece tus sentidos te abandonan y es la ultima vez que has de inhalar aire.
+            Luego seras comida de gusanos, tanto por decir y tanto por vivir, quizas nunca debiste emprender ese sendero despues de todo.
+            
+            Por favor refresca el navegador y vuelve a intentarlo.</P></div>`;
 }
 
 function menuPrincipal() {
@@ -259,8 +264,9 @@ function menuPrincipal() {
     config && config.accedeTienda
       ? tienda()
       : swal(
-          "Personaje no creado, por favor seleccione la opcion crear personaje primero."
-        );
+        `No tienes la energia suficiente, aún no recuerdas quien eres.
+            Has otro esfuerzo e intenta recordarlo.`
+      );
   };
 
   let btnJugar = document.getElementById("Jugar-btn");
@@ -268,8 +274,12 @@ function menuPrincipal() {
     config && config.puedeJugar
       ? jugar()
       : swal(
-          "El personaje no tiene un arma equipada, por favor ingrese en la tienda y compre un arma."
-        );
+        `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
+          Tratas de buscar la empuñadura del arma para calmar la ansiedad pero te das cuenta que la llevas encima.
+          Cómienzas a buscar al rededor de la fogata pero no la encuentras por ningun lado.
+          ¿Habras sido saqueado?
+          Debes conseguir algo para batallar o seras carne de gusanos.`
+      );
   };
 
   let btnSalir = document.getElementById("Salir-btn");
@@ -298,9 +308,13 @@ document.getElementById("btn_crearpersonaje").onclick = function () {
   console.log(document.getElementById("tipo"));
 
   if (nombre.value && tipo.value) {
+    let tipoTexto = tipo.options[tipo.selectedIndex].text;
+    let tipoSeparado = tipoTexto.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+      return str.toLowerCase();
+    });
     swal(
-      `Tu nombre viene a tu mente ${nombre.value} y pareces recordar que previamente eras un ` +
-        tipo.options[tipo.selectedIndex].text
+      `Tu nombre viene a tu mente, ${nombre.value}.
+      Tambien pareces recordar que previamente eras un ${tipoSeparado.toLowerCase()}.`
     );
     jugador = new Personaje(nombre.value, tipoDePersonaje[tipo.value - 1]);
     config.accedeTienda = true;
@@ -336,8 +350,6 @@ function jugar() {
   };
 }
 
-//let enemy = new Enemigo("Espectro abismal", 20, 10, "Alarido");
-
 // Prueba para generar un array con los enemigos
 
 function batalla() {
@@ -347,24 +359,42 @@ function batalla() {
   document.getElementById("Atacar-btn").style.color = "black";
   document.getElementById("Pocion-btn").style.color = "black";
   let btnAtacar = document.getElementById("Atacar-btn");
-  let enemy = Math.floor(Math.random() * escenarios.length);
   btnAtacar.onclick = () => {
-    ataque(enemys[enemy]);
-    swal(`Al enemigo le queda ${enemys[enemy].energia}`);
-    cargaEscenario();
+    visualizarAtaque();
   };
 }
 
-// Re escribir la condicion preguntando directamente si enemy.muerto es verdadero o falso
+// Ver si esto es viable
+function visualizarAtaque() {
+  //titulosYTextos(titulos[6],textoPelea[Math.random() * textoPelea.length]);
+  // Tnego que lograr levantar el array y frenar en cuanto el array esta vacio 
+  console.log("Si entro aca es un milagro de la creacion binaria (?)");
+  let enemyIndex = Math.floor(Math.random() * enemys.length);
+  let textoModificado = document.getElementById("texto");
+  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
+                              ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
+                              En camara lenta notas como toma inclina su cuerpo hacia adelante y notas que toma impulso para lanzar otro ataque y el golpe será inevitable.`;
+  ataque(enemys[enemyIndex]);
+  swal(`Al enemigo le queda ${enemys[enemyIndex].energia}`);
+  if ((enemys[enemyIndex].muerto) && (enemys.length != 0)) {
+    enemys.splice(enemyIndex, 1);
+    cargaEscenario();
+  } else if (enemys.length == 0) {
+    // Tengo que escribirla aun
+    pantallaFinal();
+  }
+
+}
 
 function ataque(enemy) {
   while (!enemy.muerto) {
     if (enemy.energia >= 0) {
       jugador.atacar(enemy);
-      console.log("te queda: " + jugador.getEnergia);
+      console.log(`te queda:  ${jugador.getEnergia}`);
+      console.log(`al enemigo le queda ${enemy.energia}`);
     } else if (enemy.energia <= 0) {
       console.log("El enemigo murio");
-      // Si el personaje murio, sacarlo del array y avisar que esta muerto
+      enemy.muerto = true;
       return;
     }
   }
@@ -395,7 +425,8 @@ Sigues sintiendo que hay mas peligro por delante pese al miedo, una leve sonrisa
 Tomas el candelabro del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.`,
 ];
 
-const textoPelea = [];
+//let textoPelea = [`Tomas tu ${jugador.arma} y lanzas un ataque a la mayor velocidad posible.
+//                    ${enemys[enemy].nombre} recibe el golpe y retrocede brevemente `];
 
 function cargaEscenario() {
   document.getElementById("Atacar-btn").remove();
@@ -414,25 +445,33 @@ function cargaEscenario() {
 function equipamiento(arma) {
   jugador.equiparArma(arma);
   jugador.restarDinero(800);
-  console.log("jugador.dinero", jugador.dinero);
-  jugador.dinero
-    ? swal(
-        `Jugador ${jugador.nombre} gracias por comprar. Le queda ${jugador.dinero}`
-      )
-    : salir();
-
+  console.log("jugador dinero", jugador.dinero);
+  if (jugador.dinero) {
+    swal(`¿Cual es su nombre? 
+        Ah ${jugador.nombre}, me recuerda al atisbo de epocas mejores por venir.
+        Gracias por su compra!`);
+  } else {
+    swal(`-No fue muy sabio de su parte querer sacar partida de la situacion..
+            En ese momento el encapuchado en un movimiento rapido saco del interior de su capa una daga
+            y lanzo una estocada la cual fue recibida en su abdomen.
+            La velocidad fue tal que aun no comprendes la situacion, en un parpadeo has visto como la daga
+            se retiro del abdomen y la sangre comenzo a brotar cómo negras lenguas de algun monstruo sediento.
+            Sientes el calor en tus manos mientras intentas tapar la herida, pero es demasiado tarde, comienzas a ver nublado.
+            Sientes un sudor frio correr por tu rostro y sientes cómo todo a tu alrededor comienza a apagarse.
+            Todo esta negro, quedan pensamientos, muy a lo lejos.`);
+    salir();
+  }
   mostrarDineroActual();
 }
 
 function comprarPociones() {
   jugador.guardarPociones(1);
   jugador.restarDinero(25);
-  jugador.dinero
+  jugador.dinero > 0
     ? swal(
-        `Tenes ${jugador.getCantPociones} pociones. Le queda ${jugador.dinero}`
-      )
+      `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
+    )
     : swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
-
   mostrarDineroActual();
 }
 
@@ -441,7 +480,7 @@ function mostrarDineroActual() {
     ? document.getElementById("dinero-actual")
     : document.createElement("p");
   textoDineroDisponible.setAttribute("id", `dinero-actual`);
-  textoDineroDisponible.innerText = `Actualmente tiene ${jugador.getDineroDisponible} para gastar.`;
+  textoDineroDisponible.innerText = `Miras tu bolsa con dinero y te das cuenta que te quedan ${jugador.getDineroDisponible} para gastar.`;
 }
 
 pantallaPrincipal();
