@@ -109,7 +109,6 @@ function crearArrayDeEnemigos(enemigos) {
 }
 crearArrayDeEnemigos(enemigos);
 
-
 /* Esto lo borramos luego
 const catalogoEnemigos = new CatalogoEnemigos(enemigos);
 console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
@@ -264,9 +263,9 @@ function menuPrincipal() {
     config && config.accedeTienda
       ? tienda()
       : swal(
-        `No tienes la energia suficiente, aún no recuerdas quien eres.
+          `No tienes la energia suficiente, aún no recuerdas quien eres.
             Has otro esfuerzo e intenta recordarlo.`
-      );
+        );
   };
 
   let btnJugar = document.getElementById("Jugar-btn");
@@ -274,12 +273,12 @@ function menuPrincipal() {
     config && config.puedeJugar
       ? jugar()
       : swal(
-        `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
+          `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
           Tratas de buscar la empuñadura del arma para calmar la ansiedad pero te das cuenta que la llevas encima.
           Cómienzas a buscar al rededor de la fogata pero no la encuentras por ningun lado.
           ¿Habras sido saqueado?
           Debes conseguir algo para batallar o seras carne de gusanos.`
-      );
+        );
   };
 
   let btnSalir = document.getElementById("Salir-btn");
@@ -309,9 +308,11 @@ document.getElementById("btn_crearpersonaje").onclick = function () {
 
   if (nombre.value && tipo.value) {
     let tipoTexto = tipo.options[tipo.selectedIndex].text;
-    let tipoSeparado = tipoTexto.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
-      return str.toLowerCase();
-    });
+    let tipoSeparado = tipoTexto
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, function (str) {
+        return str.toLowerCase();
+      });
     swal(
       `Tu nombre viene a tu mente, ${nombre.value}.
       Tambien pareces recordar que previamente eras un ${tipoSeparado.toLowerCase()}.`
@@ -362,42 +363,113 @@ function batalla() {
   btnAtacar.onclick = () => {
     visualizarAtaque();
   };
+  let btnPocion = document.getElementById("Pocion-btn");
+  btnPocion.onclick = () => {
+    recuperarEnergia();
+  };
 }
 
-// Ver si esto es viable
+function recuperarEnergia() {
+  jugador.usarPocion();
+  swal(`Usaste una pocion y ahora tienes ${jugador.energia}`);
+}
+
+function pantallaFinal() {
+  swal(`Luego de la última batalla caes de rodillas, agostado.
+        La adrenalina comienza a desvaneserse y los golpes recibidos comienzan a sentirse en el cuerpo.
+        Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.
+        `);
+}
+
+// Probemos modificando esto y reescribiendo para que el while este en el visualizar y que el ataque sea una sola vez
+/*
 function visualizarAtaque() {
-  //titulosYTextos(titulos[6],textoPelea[Math.random() * textoPelea.length]);
-  // Tnego que lograr levantar el array y frenar en cuanto el array esta vacio 
-  console.log("Si entro aca es un milagro de la creacion binaria (?)");
   let enemyIndex = Math.floor(Math.random() * enemys.length);
   let textoModificado = document.getElementById("texto");
   textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
                               ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
                               En camara lenta notas como toma inclina su cuerpo hacia adelante y notas que toma impulso para lanzar otro ataque y el golpe será inevitable.`;
+  let div = document.getElementById("contenedor");
+  let statusEnergia = document.getElementById("statusEnergia")
+    ? document.getElementById("statusEnergia")
+    : document.createElement("p");
+  statusEnergia.setAttribute("id", `statusEnergia`);
+  //document.getElementById("statusEnergia").style."font-style: bold";
+  statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} ...................................... ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
+  div.appendChild(statusEnergia);
   ataque(enemys[enemyIndex]);
-  swal(`Al enemigo le queda ${enemys[enemyIndex].energia}`);
-  if ((enemys[enemyIndex].muerto) && (enemys.length != 0)) {
-    enemys.splice(enemyIndex, 1);
+  if (enemys.length != 0) {
     cargaEscenario();
   } else if (enemys.length == 0) {
-    // Tengo que escribirla aun
     pantallaFinal();
   }
+}
+function ataque(enemy) {
+  console.log("Entre al ataque");
+  while (!enemy.muerto) {
+    if (enemy.energia > 0) {
+      jugador.atacar(enemy);
+      console.log(`Te queda:  ${jugador.getEnergia}`);
+      console.log(`A ${enemy.nombre} le queda ${enemy.energia}`);
+      if (enemy.energia <= 0) {
+        console.log(
+          `${enemy.nombre} murio y le queda ${enemy.energia} de vida.`)
+          enemy.muerto = true;
+          enemys.splice(enemy, 1);
+          break;
+      }
+    } else if (enemy.energia <= 0) {
+      console.log(`${enemy.nombre} murio y le quedo ${enemy.energia} de vida.`);
+      break;
+    }
+  }
+  console.log(enemys);
+  console.log("Sali del ataque");
+  return;
+  console.log("Este no se deberia ver nunca");
+}*/
 
+// Version modificada y le vamos a sacar el while de la pelea para llevarlo al visualizador
+
+function visualizarAtaque() {
+  let enemyIndex = Math.floor(Math.random() * enemys.length);
+  let textoModificado = document.getElementById("texto");
+  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
+                              ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
+                              En camara lenta notas como toma inclina su cuerpo hacia adelante y notas que toma impulso para lanzar otro ataque y el golpe será inevitable.`;
+  let div = document.getElementById("contenedor");
+  ataque(enemys[enemyIndex]);
+  if(!enemys[enemyIndex].muerto){
+    let statusEnergia = document.getElementById("statusEnergia")
+      ? document.getElementById("statusEnergia")
+      : document.createElement("p");
+    statusEnergia.setAttribute("id", `statusEnergia`);
+    statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} ...................................... ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
+    div.appendChild(statusEnergia);
+  } else if ((enemys[enemyIndex].muerto) && (enemys.length != 0)){
+    console.log(`${enemys[enemyIndex].nombre} ha muerto`);
+    console.log(`Se va a borrar a ${enemys[enemyIndex].nombre}`);
+    enemys.splice(enemyIndex, 1);
+    console.log(enemys);
+    cargaEscenario();
+  } else if (enemys.length == 0) {
+    pantallaFinal();
+  }
 }
 
 function ataque(enemy) {
-  while (!enemy.muerto) {
-    if (enemy.energia >= 0) {
+  console.log("Entre al ataque");
+  if (!enemy.muerto) {
+    if (enemy.energia > 0) {
       jugador.atacar(enemy);
-      console.log(`te queda:  ${jugador.getEnergia}`);
-      console.log(`al enemigo le queda ${enemy.energia}`);
-    } else if (enemy.energia <= 0) {
-      console.log("El enemigo murio");
-      enemy.muerto = true;
-      return;
+      console.log(`Te queda:  ${jugador.getEnergia}`);
+      console.log(`A ${enemy.nombre} le queda ${enemy.energia}`);
     }
-  }
+  } else if (enemy.energia <= 0) {
+    console.log(`${enemy.nombre} murio y le quedo ${enemy.energia} de vida.`);
+    enemy.muerto = true;
+    }
+  return;
 }
 
 const escenarios = ["Cripta", "Pasillo", "Caverna", "Gruta"];
@@ -409,7 +481,7 @@ Te mueves de manera lenta y pausada porque no sabes que puede merodear en la cri
 Al avanzar te encuentras con un agujero, los escrombros a su alrededor fueron lo que generaron aquel sonido,
 decides entrar en el pero primero introduces el candelabro para iluminar el espacio.`,
 
-  `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra humeda y ciertos restos de huesos.
+  `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra humeda y fragmentos de huesos.
 La luz de el candelabro comienza a iluminar cada vez mas mientras los muros van cerrandose lentamente y comienzas a ponerte nervioso.
 Llegas al punto donde la unica manera de pasar es poniendote de perfil y raspandote las mejillas, hasta un punto donde ya no pasas.
 El miedo se apodera, las velas del candelabro comienzan a apagarse, el viento en el rostro te dio algo de esperanza.
@@ -469,8 +541,8 @@ function comprarPociones() {
   jugador.restarDinero(25);
   jugador.dinero > 0
     ? swal(
-      `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
-    )
+        `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
+      )
     : swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
   mostrarDineroActual();
 }

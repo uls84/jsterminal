@@ -83,11 +83,14 @@ class Personaje {
   }
 
   usarPocion() {
-    if (this.pociones !== 0) {
+    if (this.pociones > 0) {
       this.energia += 25;
+      this.pociones --;
       if (this.energia > 100) {
         this.energia = 100;
       }
+    } else if(this.pociones <= 0) {
+      console.log("No hay mas pociones.");
     }
   }
 }
