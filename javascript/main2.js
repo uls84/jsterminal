@@ -375,7 +375,7 @@ function recuperarEnergia() {
 }
 
 function pantallaFinal() {
-  swal(`Luego de la última batalla caes de rodillas, agostado.
+  swal(`Luego de la última batalla caes de rodillas, agotado.
         La adrenalina comienza a desvaneserse y los golpes recibidos comienzan a sentirse en el cuerpo.
         Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.
         `);
@@ -444,7 +444,7 @@ function visualizarAtaque() {
       ? document.getElementById("statusEnergia")
       : document.createElement("p");
     statusEnergia.setAttribute("id", `statusEnergia`);
-    statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} ...................................... ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
+    statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} .................................. ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
     div.appendChild(statusEnergia);
   } else if ((enemys[enemyIndex].muerto) && (enemys.length != 0)){
     console.log(`${enemys[enemyIndex].nombre} ha muerto`);
@@ -540,7 +540,7 @@ function comprarPociones() {
   jugador.guardarPociones(1);
   jugador.restarDinero(25);
   jugador.dinero > 0
-    ? swal(
+    ? console.log(
         `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
       )
     : swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
@@ -552,7 +552,7 @@ function mostrarDineroActual() {
     ? document.getElementById("dinero-actual")
     : document.createElement("p");
   textoDineroDisponible.setAttribute("id", `dinero-actual`);
-  textoDineroDisponible.innerText = `Miras tu bolsa con dinero y te das cuenta que te quedan ${jugador.getDineroDisponible} para gastar.`;
+  textoDineroDisponible.innerText = `Miras el interior de tu bolsa, cuentas con ${jugador.getDineroDisponible} para gastar y miras la cantidad de pociones que posees, quedan ${jugador.getCantPociones}.`;
 }
 
 pantallaPrincipal();
