@@ -23,19 +23,31 @@ class Personaje {
     }
   }
 
+  // Agregue la confirmacioni de matarlo en caso de que uno le pegue no recibe daño de algo que esta muerto
   atacar(enemigo) {
     if (!enemigo.muerto && this.penalizacion) {
       enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
-      console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
-      this.recibirDamage(enemigo.fuerza);
-      console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
-      console.log(`Te queda ${this.energia} de vida`);
+      if (enemigo.energia > 0) {
+        console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } else if (enemigo.energia <= 0) {
+        console.log(`El enemigo esta muerto`);
+        enemigo.muerto = true;
+      }
     } else if (!enemigo.muerto) {
       enemigo.damage(parseInt(this.tipo.fuerza));
-      console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
-      this.recibirDamage(enemigo.fuerza);
-      console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
-      console.log(`Te queda ${this.energia} de vida`);
+      if (enemigo.energia > 0) {
+        console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } if (enemigo.energia <= 0) {
+        console.log(`El enemigo esta muerto`);
+        enemigo.muerto = true;
+      }
+
     } else {
       console.log(`El enemigo esta muerto`);
       enemigo.muerto = true;
@@ -85,11 +97,11 @@ class Personaje {
   usarPocion() {
     if (this.pociones > 0) {
       this.energia += 25;
-      this.pociones --;
+      this.pociones--;
       if (this.energia > 100) {
         this.energia = 100;
       }
-    } else if(this.pociones <= 0) {
+    } else if (this.pociones <= 0) {
       console.log("No hay mas pociones.");
     }
   }

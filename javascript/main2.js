@@ -233,10 +233,11 @@ const { nombre: names } = tipoDePersonaje;
 function salir() {
   let cuerpo = document.getElementById("contenedor");
   cuerpo.innerHTML = `<legend>Has muerto</legend>
-    <div><P>Todo esta negro, sólo sientes el viento correr por tu rostro, comienzas a olvidar cómo has llegado a ese punto.
-            Mientras la llama de esperanza desaparece tus sentidos te abandonan y es la ultima vez que has de inhalar aire.
-            Luego seras comida de gusanos, tanto por decir y tanto por vivir, quizas nunca debiste emprender ese sendero despues de todo.
+    <div><P>Mientras todo se torna negro, sientes una suave caricia en tu rostro, posiblemente sea el viento.
+            La esperanza desaparece rápidamente mientras tus sentidos te abandonan y desearias no haber embarcado esta aventura.
+            La angustia consume tu último aliento, el nudo en la garganta suprime un grito que sera tu recuerdo por la eternidad.
             
+
             Por favor refresca el navegador y vuelve a intentarlo.</P></div>`;
 }
 
@@ -263,9 +264,9 @@ function menuPrincipal() {
     config && config.accedeTienda
       ? tienda()
       : swal(
-          `No tienes la energia suficiente, aún no recuerdas quien eres.
+        `No tienes la energia suficiente, aún no recuerdas quien eres.
             Has otro esfuerzo e intenta recordarlo.`
-        );
+      );
   };
 
   let btnJugar = document.getElementById("Jugar-btn");
@@ -273,12 +274,12 @@ function menuPrincipal() {
     config && config.puedeJugar
       ? jugar()
       : swal(
-          `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
+        `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
           Tratas de buscar la empuñadura del arma para calmar la ansiedad pero te das cuenta que la llevas encima.
           Cómienzas a buscar al rededor de la fogata pero no la encuentras por ningun lado.
           ¿Habras sido saqueado?
           Debes conseguir algo para batallar o seras carne de gusanos.`
-        );
+      );
   };
 
   let btnSalir = document.getElementById("Salir-btn");
@@ -381,72 +382,32 @@ function pantallaFinal() {
         `);
 }
 
-// Probemos modificando esto y reescribiendo para que el while este en el visualizar y que el ataque sea una sola vez
-/*
 function visualizarAtaque() {
   let enemyIndex = Math.floor(Math.random() * enemys.length);
   let textoModificado = document.getElementById("texto");
   textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
-                              ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
-                              En camara lenta notas como toma inclina su cuerpo hacia adelante y notas que toma impulso para lanzar otro ataque y el golpe será inevitable.`;
+  ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
+  En camara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque y sabes que el golpe será inevitable.
+  ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
   let div = document.getElementById("contenedor");
-  let statusEnergia = document.getElementById("statusEnergia")
-    ? document.getElementById("statusEnergia")
-    : document.createElement("p");
-  statusEnergia.setAttribute("id", `statusEnergia`);
-  //document.getElementById("statusEnergia").style."font-style: bold";
-  statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} ...................................... ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
-  div.appendChild(statusEnergia);
-  ataque(enemys[enemyIndex]);
-  if (enemys.length != 0) {
-    cargaEscenario();
-  } else if (enemys.length == 0) {
-    pantallaFinal();
-  }
-}
-function ataque(enemy) {
-  console.log("Entre al ataque");
-  while (!enemy.muerto) {
-    if (enemy.energia > 0) {
-      jugador.atacar(enemy);
-      console.log(`Te queda:  ${jugador.getEnergia}`);
-      console.log(`A ${enemy.nombre} le queda ${enemy.energia}`);
-      if (enemy.energia <= 0) {
-        console.log(
-          `${enemy.nombre} murio y le queda ${enemy.energia} de vida.`)
-          enemy.muerto = true;
-          enemys.splice(enemy, 1);
-          break;
-      }
-    } else if (enemy.energia <= 0) {
-      console.log(`${enemy.nombre} murio y le quedo ${enemy.energia} de vida.`);
-      break;
-    }
-  }
-  console.log(enemys);
-  console.log("Sali del ataque");
-  return;
-  console.log("Este no se deberia ver nunca");
-}*/
 
-// Version modificada y le vamos a sacar el while de la pelea para llevarlo al visualizador
-
-function visualizarAtaque() {
-  let enemyIndex = Math.floor(Math.random() * enemys.length);
-  let textoModificado = document.getElementById("texto");
-  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
-                              ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
-                              En camara lenta notas como toma inclina su cuerpo hacia adelante y notas que toma impulso para lanzar otro ataque y el golpe será inevitable.`;
-  let div = document.getElementById("contenedor");
-  ataque(enemys[enemyIndex]);
-  if(!enemys[enemyIndex].muerto){
+  if (!enemys[enemyIndex].muerto) {
     let statusEnergia = document.getElementById("statusEnergia")
       ? document.getElementById("statusEnergia")
       : document.createElement("p");
     statusEnergia.setAttribute("id", `statusEnergia`);
     statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} .................................. ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
     div.appendChild(statusEnergia);
-  } else if ((enemys[enemyIndex].muerto) && (enemys.length != 0)){
+    ataque(enemys[enemyIndex]);
+    if ((jugador.energia <= 20) && (jugador.energia > 5)) {
+      swal(`Sientes que el último golpe recibido te dejo trastabillando, tanteas la bolsa con pociones y recuerdas que tienes ${jugador.getCantPociones}.`);
+    } else if (jugador.energia <= 0) {
+      swal(`Tu cabeza recibe un golpe que no puedo resistir, todo gira a tu alrededor y los sonidos comienzan a desvanecer.
+            Ya no sabes quien eres, no sabes dónde estas ni el motivo de esta situacion.
+            Tu visión comienza a nublarse, sólo quedan manchas y un eco apagandose, crees que alguien susurra tu nombre.`);
+      salir();
+    }
+  } else if ((enemys[enemyIndex].muerto) && (enemys.length != 0)) {
     console.log(`${enemys[enemyIndex].nombre} ha muerto`);
     console.log(`Se va a borrar a ${enemys[enemyIndex].nombre}`);
     enemys.splice(enemyIndex, 1);
@@ -464,11 +425,15 @@ function ataque(enemy) {
       jugador.atacar(enemy);
       console.log(`Te queda:  ${jugador.getEnergia}`);
       console.log(`A ${enemy.nombre} le queda ${enemy.energia}`);
+      if (enemy.energia <= 0) {
+        console.log(`${enemy.nombre} murio y le quedo ${enemy.energia} de vida.`);
+        enemy.muerto = true;
+      }
     }
   } else if (enemy.energia <= 0) {
     console.log(`${enemy.nombre} murio y le quedo ${enemy.energia} de vida.`);
     enemy.muerto = true;
-    }
+  }
   return;
 }
 
@@ -503,6 +468,7 @@ Tomas el candelabro del suelo y continuas explorando la oscuridad que te rodea, 
 function cargaEscenario() {
   document.getElementById("Atacar-btn").remove();
   document.getElementById("Pocion-btn").remove();
+  document.getElementById("statusEnergia").remove();
   let numero = Math.floor(Math.random() * escenarios.length);
   titulosYTextos(escenarios[numero], escenariosTexto[numero]);
   let botonEntrar = ["Entrar"];
@@ -541,8 +507,8 @@ function comprarPociones() {
   jugador.restarDinero(25);
   jugador.dinero > 0
     ? console.log(
-        `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
-      )
+      `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
+    )
     : swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
   mostrarDineroActual();
 }
