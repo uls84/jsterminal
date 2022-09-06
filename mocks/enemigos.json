@@ -1,8 +1,8 @@
 [
-    { "nombre": "Esqueleto", "energia": 20, "fuerza": 15, "arma": "Espada" },
-    { "nombre": "Devorador de almas", "energia": 10, "fuerza": 5, "arma": "Mordida" },
-    { "nombre": "Espectro abismal", "energia": 20, "fuerza": 10, "arma": "Alarido" },
-    { "nombre": "Abominacion reptante", "energia": 20, "fuerza": 15, "arma": "Lanza" },
+    { "nombre": "Esqueleto", "energia": 30, "fuerza": 15, "arma": "Espada" },
+    { "nombre": "Devorador de almas", "energia": 30, "fuerza": 20, "arma": "Mordida" },
+    { "nombre": "Espectro abismal", "energia": 30, "fuerza": 15, "arma": "Alarido" },
+    { "nombre": "Abominacion reptante", "energia": 50, "fuerza": 15, "arma": "Lanza" },
     { "nombre": "Sucubo famelico", "energia": 30, "fuerza": 25, "arma": "Garras" },
-    { "nombre": "Cancerbero", "energia": 50, "fuerza": 45, "arma": "Mordida" }
+    { "nombre": "Cancerbero", "energia": 60, "fuerza": 30, "arma": "Mordida" }
 ]
