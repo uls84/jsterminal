@@ -441,22 +441,21 @@ function recuperarEnergia() {
 
 function pantallaFinal() {
   let cuerpo = document.getElementById("contenedor");
+  document.getElementById("tituloPagina").style.color = "black";
   cuerpo.innerHTML = `<legend id=tituloPagina >Fin</legend>
-    <div><P>Tras la última batalla caes de rodillas, agotado.
+    <div><p>Tras la última batalla caes de rodillas, agotado.
     La adrenalina comienza a desvanecerse, los golpes recibidos no te dejan erguirte.
     Levantas la vista y por delante la capilla te aguarda, iluminada por la luz de la luna.
     Decides juntar tus últimas fuerzas para ingresar en ella, trastabillas en el camino pero finalmente lo logras.
     Tiras tu ${jugador.arma} al suelo, toda manchada en sangre y subes las escalinatas hacia el altar.
-    Apoyado sobre el mismo, encuentras el talismán, el cual tomas entre tus manos y con tus últimas fuerzas lo abrazas.
-    Tus piernas ceden y quedas desplomado en el suelo, esperando el final.
-    Alguien te llama, no tienes fuerzas para mover la cabeza, sólo puedes mover los ojos.
-    Algo blanco comienza a iluminar todo, la luz te quema y de golpe recuerdas todo.
-    Lágrimas recorren tus ojos.
-
-
-
-    </P></div>`;
-    document.getElementById("tituloPagina").style.color = "black";
+    En el centro del altar encuentras el talismán, el cual tomas entre tus manos y con tus últimas fuerzas lo abrazas.
+    De repente tus piernas ceden y quedas desplomado en el suelo.
+    Comienzas a ver una luz blanca, tan fuerte que te ciega.
+    Y en ese instante lo comprendes todo, abres completamente los ojos.
+    Unas letras escritas en gris sobre un rectangulo negro pero a la vez iluminado, narran cada una de las palabras que se te vienen a la mente.
+    ¿Lo estás leyendo o lo estás pensando?
+    
+    </p></div>`;
   typewrite();
 
 }

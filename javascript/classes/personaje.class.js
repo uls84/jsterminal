@@ -23,7 +23,6 @@ class Personaje {
   }
 
 
-  // Agregue la confirmacioni de matarlo en caso de que uno le pegue no recibe daño de algo que esta muerto
   atacar(enemigo) {
     if (!enemigo.muerto && this.penalizacion) {
       enemigo.damage(this.tipo.fuerza - 5);
