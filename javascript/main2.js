@@ -1,51 +1,64 @@
 let textos = [
-  `Te despiertas luego de un largo sueño, es de noche, aun hay algunos restos de la fogata encendidos.
-    No recuerdas como has llegado pero algo dentro tuyo quiere gritar y desviarte del camino.
-    Te has adentrado en las tierras abandonadas, donde la luna parece nunca abandonar el cielo, no recuerdas cuando fue la ultima vez que viste el sol.
-    Sientes que el fuego te protege, las sombras parecen albergar algo que siempre espera que te acerques para hacerte desaparecer.
-    Tomas el viejo candelabro y decides prender las velas para continuar con tu viaje.
+  `Te despiertas luego de un largo sueño, es de noche, aún hay algunos restos de la fogata encendidos.
+   No recuerdas cómo has llegado pero algo dentro tuyo quiere gritar y desviarte del camino.
+   Te has adentrado en las tierras abandonadas, donde la luna parece nunca abandonar el cielo,
+   no recuerdas cuándo fue la última vez que viste el sol.
+   Sientes que el fuego te protege, las sombras parecen albergar algo que siempre espera que te acerques para hacerte desaparecer.
+   Tomas el viejo candelabro y decides prender las velas para continuar con tu viaje.
 
-    Has click para sumergirte en la oscuridad.`,
+    Haz clic para sumergirte en la oscuridad.`,
 
-  `Mientras avanzas por un descampado a lo lejos ves unas luces rojas pequeñas, puede ser otra fogata? un campamento?
-    Quieres apretar la empuñadura del arma pero te das cuenta que no tienes ninguna, donde esta? suspiras.
-    Decides avanzar hasta que llegas a un panel grande de madera donde esta escrito
+  `Mientras avanzas por un descampado a lo lejos ves unas luces rojas pequeñas.
+   ¿Puede ser otra fogata?
+   ¿Un campamento?
+
+   Quieres apretar la empuñadura del arma pero te das cuenta que no tienes ninguna.
+   ¿Dónde está? suspiras.
+   Decides avanzar hasta que llegas a un panel grande de madera donde está escrito
 
     Por favor siga estos consejos para disfrutar de una mejor experiencia:
-        1 - Debera crear el personaje.
-        2 - Luego debe equipar un arma y comprar pociones.
-        3 - Podra comenzar una vez que se hayan completado los pasos anteriores.`,
 
-  `A la izquierda ves a alguien encapuchado sentado detras de una mesa, dos velas iluminan los dos puntos opuestos de la mesa.
-    Una exibicion de armas y frascos con liquidos sobre la misma.
-    El rostro de la persona esta oculto por la capucha pero parte de sus mejillas son iluminadas por las velas.
+        1 - Deberá crear el personaje.
+        2 - Luego debe equipar un arma y comprar pociones.
+        3 - Podrá comenzar una vez que se hayan completado los pasos anteriores.
+        
+        `,
+
+  `A la izquierda ves a alguien encapuchado sentado detrás de una mesa, dos velas iluminan los dos puntos opuestos de la mesa.
+    Una exhibición de armas y frascos con líquidos sobre la misma.
+    El rostro de la persona está oculto por la capucha pero parte de sus mejillas son iluminadas por las velas.
     Decides acercarte para preguntar por las armas cuando te habla:
-    - Mmm puedo leer en tus ojos que la muerte te sonrie, por favor adquiera alguna de las siguientes armas y no olvide las pociones!
-    Es peligroso andar por ahi solo.
+    - Mmm puedo leer en tus ojos que la muerte te sonríe, por favor adquiera alguna de las siguientes armas y no olvide las pociones!
+    Es peligroso andar por ahí solo.
         
         Espada ===> 800R
         Daga ===> 800R
         Hacha ===> 800R
         Pocion ===> 25R`,
 
-  `Veo que aun no ha adquirido pociones aun, por favor tome las que necesite.
+  `Veo que aún no ha adquirido pociones aun, por favor tome las que necesite.
         
         Pocion ===> 25R
         
         `,
 
-  `Tratas de recordar cual era tu nombre, sientes una niebla mental,cual era tu proposito?
-    Que era lo que hacias previamente a este momento? 
-    Como has llegado a este punto?
-    Tratas de pensar y lo unico que recuerdas es...`,
+  `Tratas de recordar cuál era tu nombre, sientes una niebla mental.
+  ¿Cuál era tu proposito?
+  ¿Que era lo que haciás previamente a este momento? 
+  ¿Cómo has llegado a este punto?
+  Tratas de pensar y lo único que recuerdas es...`,
 
-  `Llegas a la puerta de una cripta, no recuerdas bien porque pero sabes que debes adentrarte en la misma para lograr el proposito, pero cual es el proposito?
-    La memoria no te esta dando una buena pasada, mientras mas fuerte haces el esfuerzo por recordar mas dificil parece ser recordarlo.
-    Sabes sin embargo que dentro las personas que no tomen el riesgo necesario seran comida de gusanos. Hay un enemigo!`,
+  `Te adentras en la oscuridad, intentas ver más allá de lo que ilumina el candelabro.
+   Percibes un olor nauseabundo seguido de un sonido.
+   Tu instinto te dice que te agaches, lo logras justo a tiempo y esquivas un golpe que iba dirigido a tu cabeza.
+   Al levantarte lo ves erguido a punto de volver a atacar, es tu turno.`,
 
-  `Te adentras en la oscuridad de la cripta, percibes un olor nauseabundo seguido de un sonido.
-    Logras agacharte justo a tiempo para esquivar algo que apunto a tu cabeza.
-    Al levantarte lo ves erguido a punto de volver a atacar, es tu turno.`,
+  `Llegas a la puerta de una cripta, no recuerdas bien porqué pero sabes que debes adentrarte en la misma para lograr el proposito.
+   ¿Cuál es el propósito?
+   La memoria no te está dando una buena pasada, mientras más fuerte haces el esfuerzo por recordar más difícil parece ser recordarlo.
+    Sabes sin embargo que dentro las personas que no tomen el riesgo necesario serán comida de gusanos.`,
+
+  
 ];
 
 localStorage.clear();
@@ -62,7 +75,7 @@ let titulos = [
   "Tienda",
   "Crear Personaje",
   "Entrada de cripta",
-  "Cripta",
+  "Oscuridad",
 ];
 
 
@@ -259,13 +272,14 @@ const { nombre: names } = tipoDePersonaje;
 
 function salir() {
   let cuerpo = document.getElementById("contenedor");
-  cuerpo.innerHTML = `<legend>Has muerto</legend>
+  cuerpo.innerHTML = `<legend id="tituloPagina" >Has muerto</legend>
     <div><P>Mientras todo se torna negro, sientes una suave caricia en tu rostro, posiblemente sea el viento.
-            La esperanza desaparece rápidamente mientras tus sentidos te abandonan y desearias no haber embarcado esta aventura.
-            La angustia consume tu último aliento, el nudo en la garganta suprime un grito que sera tu recuerdo por la eternidad.
+            La esperanza desaparece rápidamente mientras tus sentidos te abandonan y desearías no haber embarcado esta aventura.
+            La angustia consume tu último aliento, el nudo en la garganta suprime un grito que será tu recuerdo por la eternidad.
             
 
             Por favor refresca el navegador y vuelve a intentarlo.</P></div>`;
+  document.getElementById("tituloPagina").style.color = "black";      
   typewrite();
 }
 
@@ -304,9 +318,9 @@ function menuPrincipal() {
       : swal(
         `Sabes que debes entrar a la cripta, no entiendes aún el motivo pero te urge la necesidad.
           Tratas de buscar la empuñadura del arma para calmar la ansiedad pero te das cuenta que la llevas encima.
-          Cómienzas a buscar al rededor de la fogata pero no la encuentras por ningun lado.
-          ¿Habras sido saqueado?
-          Debes conseguir algo para batallar o seras carne de gusanos.`
+          Comienzas a buscar alrededor de la fogata pero no la encuentras por ningún lado.
+          ¿Habrás sido saqueado?
+          Debes conseguir algo para batallar o serás carne de gusanos.`
       );
   };
 
@@ -392,7 +406,6 @@ function jugar() {
   };
 }
 
-// Prueba para generar un array con los enemigos
 let enemyIndex = Math.floor(Math.random() * enemys.length);
 
 function batalla() {
@@ -416,18 +429,22 @@ function batalla() {
 function recuperarEnergia() {
   jugador.getCantPociones ? (
     jugador.usarPocion(),
-    swal(`Usaste una pocion y ahora tienes ${jugador.energia} y ${jugador.getCantPociones} pociones.`)
+    swal(`Tomas una poción y consumes todo su contenido, tiras el frasco.
+          Vuelves a mirar el interior del bolso y quedan ${jugador.getCantPociones} pociones.
+          Tienes ${jugador.energia} de energía.`)
   ) : (
-    swal(`No tienes más pociones.`)
+    swal(`Abres el bolso para tomar una poción y te percatas que no tienes más.
+          Estas a merced del destino, tendras suerte?`)
   );
 }
 
 function pantallaFinal() {
   let cuerpo = document.getElementById("contenedor");
-  cuerpo.innerHTML = `<legend>Fin</legend>
+  cuerpo.innerHTML = `<legend id=tituloPagina >Fin</legend>
     <div><P>Luego de la última batalla caes de rodillas, agotado.
-    La adrenalina comienza a desvaneserse y los golpes recibidos comienzan a sentirse en el cuerpo.
+    La adrenalina comienza a desvanecerse y los golpes recibidos comienzan a sentirse en el cuerpo.
     Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.</P></div>`;
+    document.getElementById("tituloPagina").style.color = "black";
   typewrite();
 
 }
@@ -435,12 +452,15 @@ function pantallaFinal() {
 function alertaEnergiaBaja() {
   if ((jugador.energia <= 20) && (jugador.energia > 5)) {
     //PARA TOMAR POCION
-    swal(`Sientes que el último golpe recibido te dejo trastabillando, tanteas la bolsa con pociones y recuerdas que tienes ${jugador.getCantPociones}.`);
+    swal(`Sientes que el último golpe recibido te dejo trastabillando,
+          tanteas la bolsa con pociones y recuerdas que aun tienes ${jugador.getCantPociones}.`);
   } else if (jugador.energia <= 0) {
     //GAMEOVER
-    swal(`Tu cabeza recibe un golpe que no puedo resistir, todo gira a tu alrededor y los sonidos comienzan a desvanecer.
-        Ya no sabes quien eres, no sabes dónde estas ni el motivo de esta situacion.
-        Tu visión comienza a nublarse, sólo quedan manchas y un eco apagandose, crees que alguien susurra tu nombre.`);
+    swal(`Tu cabeza recibe un golpe que no puedo resistir.
+          Todo gira a tu alrededor y los sonidos comienzan a desvanecerse.
+          No sabes quien eres, ni dónde te encuentras.
+          Tu visión comienza a nublarse y sólo quedan manchas.
+          Un eco a lo lejos apagándose, alguien susurra tu nombre.`);
     salir();
   }
 }
@@ -450,7 +470,6 @@ function enemigoMuertoyArrayNoVacio() {
     console.log(`${enemys[enemyIndex].nombre} ha muerto`);
     console.log(`Se va a borrar a ${enemys[enemyIndex].nombre}`);
     enemys.splice(enemyIndex, 1);
-    //Cargo nuevo enemigo al azar
     enemyIndex = Math.floor(Math.random() * enemys.length);
     console.log(enemys);
     cargaEscenario();
@@ -467,10 +486,11 @@ function visualizarAtaque() {
   }
 
   let textoModificado = document.getElementById("texto");
-  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
-  ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
-  En camara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque y sabes que el golpe será inevitable.
-  ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
+  textoModificado.innerText = `Tomas rápidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
+                               ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibrio.
+                               En cámara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque.
+                               Sabes que el golpe será inevitable.
+                               ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
   let div = document.getElementById("contenedor");
   ataque(enemys[enemyIndex]);
 
@@ -508,26 +528,27 @@ function ataque(enemy) {
 const escenarios = ["Cripta", "Pasillo", "Caverna", "Gruta"];
 
 const escenariosTexto = [
-  `Al caer muerto el impacto del cuerpo contra el suelo genero un temblor y a lo lejos un sonido de algo desmoronandose te paraliza.
-Tomas coraje y decides explorar el origen de aquel sonido que te helo la sangre.
-Te mueves de manera lenta y pausada porque no sabes que puede merodear en la cripta.
-Al avanzar te encuentras con un agujero, los escrombros a su alrededor fueron lo que generaron aquel sonido,
-decides entrar en el pero primero introduces el candelabro para iluminar el espacio.`,
+  `Al caer muerto el impacto del cuerpo contra el suelo generó un temblor y a lo lejos un sonido de algo desmoronándose te paraliza.
+  Tomas coraje y decides explorar el origen de aquel sonido que te heló la sangre.
+  Te mueves de manera lenta y pausada debido a que no sabes que puede merodear en la cripta.
+  Al avanzar te encuentras con un agujero, los escombros a su alrededor fueron lo que generaron aquel sonido,
+  decides entrar en él pero primero introduces el candelabro para iluminar el espacio.`,
 
-  `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra humeda y fragmentos de huesos.
-La luz de el candelabro comienza a iluminar cada vez mas mientras los muros van cerrandose lentamente y comienzas a ponerte nervioso.
-Llegas al punto donde la unica manera de pasar es poniendote de perfil y raspandote las mejillas, hasta un punto donde ya no pasas.
-El miedo se apodera, las velas del candelabro comienzan a apagarse, el viento en el rostro te dio algo de esperanza.
-Decides avanzar de todos modos y logras pasar el punto mas angosto, unas gotas de sangre te corren por las mejillas pero no importa, piensas que lo peor ya ha pasado.`,
+  `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra húmeda y fragmentos de huesos.
+  La luz de él candelabro comienza a iluminar cada vez más mientras los muros van cerrándose lentamente y comienzas a ponerte nervioso.
+  Llegas al punto donde la única manera de pasar es poniéndote de perfil y raspando las mejillas, hasta un punto donde ya no pasas.
+  El miedo se apodera, las velas del candelabro comienzan a apagarse, el viento en el rostro te da algo de esperanza.
+  Decides avanzar de todos modos y logras pasar el punto más angosto, unas gotas de sangre te corren por las mejillas pero no importa,
+  piensas que lo peor ya ha pasado.`,
 
-  `El ultimo encuentro te dejo agitado y sudado, te encuentras con dificultad para respirar pero has de seguir avanzando.
-Miras a tu alrededor intentando decidir que camino tomar, pero te decides por seguir derecho.
-Mientras avanzas en la oscuridad las paredes que te rodeaban comienzan a estar mas y mas cerca hasta que se convierten en un pasillo rocoso.
-Te encuentras con un hedor nauseabundo,decides taparte las fosas nasales con un trapo para no respirarlo y continuas avanzando.`,
+  `El último encuentro te dejó agitado y sudado, te encuentras con dificultad para respirar pero has de seguir avanzando.
+  Miras a tu alrededor intentando decidir qué camino tomar, pero te decides por seguir derecho.
+  Avanzas en la oscuridad las paredes que te rodean comienzan a estar más y más cerca hasta que se convierten en un pasillo rocoso.
+  Te encuentras con un hedor nauseabundo,decides taparte las fosas nasales con un trapo mientras continúas avanzando.`,
 
-  `Otro enemigo mas que cae al suelo, la ultima estocada te dejo cansado pero la adrenalina sigue corriendo por tus venas.
-Sigues sintiendo que hay mas peligro por delante pese al miedo, una leve sonrisa se asoma en tu rostro mientras te limpias la sangre del mismo.
-Tomas el candelabro del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.`,
+  `Otro enemigo más que cae al suelo, la última estocada te dejo cansado pero la adrenalina sigue corriendo por tus venas.
+  Sigues sintiendo que hay más peligro por delante pese al miedo, una leve sonrisa se asoma en tu rostro mientras te limpias la sangre del mismo.
+  Tomas el candelabro del suelo y continúas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.`,
 ];
 
 
@@ -557,13 +578,13 @@ function equipamiento(arma) {
         Ah ${jugador.nombre}, me recuerda al atisbo de epocas mejores por venir.
         Gracias por su compra!`);
   } else {
-    swal(`-No fue muy sabio de su parte querer sacar partida de la situacion..
-            En ese momento el encapuchado en un movimiento rapido saco del interior de su capa una daga
-            y lanzo una estocada la cual fue recibida en su abdomen.
-            La velocidad fue tal que aun no comprendes la situacion, en un parpadeo has visto como la daga
-            se retiro del abdomen y la sangre comenzo a brotar cómo negras lenguas de algun monstruo sediento.
+    swal(`-No fue muy sabio de su parte querer sacar partida de la situación..
+
+            En ese momento el encapuchado en un movimiento rápido extrae del interior de su capa una daga.
+            La velocidad fue tal que aun no comprendes la situación y en un parpadeo has visto como la daga
+            se retira de tu abdomen y la sangre comenzó a brotar cómo negras lenguas de algún monstruo sediento.
             Sientes el calor en tus manos mientras intentas tapar la herida, pero es demasiado tarde, comienzas a ver nublado.
-            Sientes un sudor frio correr por tu rostro y sientes cómo todo a tu alrededor comienza a apagarse.
+            El sudor frío recorre tu rostro y todo a tu alrededor comienza a apagarse.
             Todo esta negro, quedan pensamientos, muy a lo lejos.`);
     salir();
   }
@@ -575,10 +596,11 @@ function comprarPociones() {
   jugador.restarDinero(25);
   jugador.dinero > 0
     ? console.log(
-      `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
+      `Miras el interior de tu bolso, tienes ${jugador.getCantPociones} pociones.
+       Aún tienes ${jugador.dinero} para gastar`
     )
     :
-    swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
+    swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aquí.`);
   mostrarDineroActual();
 }
 
