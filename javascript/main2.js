@@ -259,7 +259,7 @@ function pantallaPrincipal() {
   titulosYTextos(titulos[0], textos[0]);
   let btn = document.getElementById("dato");
   btn.onclick = () => menuPrincipal();
-  typewrite()
+  typewrite();
 }
 
 const opcionesMenuPrincipal = ["Crear-personaje", "Tienda", "Jugar", "Salir"];
@@ -273,12 +273,12 @@ const { nombre: names } = tipoDePersonaje;
 function salir() {
   let cuerpo = document.getElementById("contenedor");
   cuerpo.innerHTML = `<legend id="tituloPagina" >Has muerto</legend>
-    <div><P>Mientras todo se torna negro, sientes una suave caricia en tu rostro, posiblemente sea el viento.
+    <div><p>Mientras todo se torna negro, sientes una suave caricia en tu rostro, posiblemente sea el viento.
             La esperanza desaparece rápidamente mientras tus sentidos te abandonan y desearías no haber embarcado esta aventura.
             La angustia consume tu último aliento, el nudo en la garganta suprime un grito que será tu recuerdo por la eternidad.
             
 
-            Por favor refresca el navegador y vuelve a intentarlo.</P></div>`;
+            Por favor refresca el navegador y vuelve a intentarlo.</p></div>`;
   document.getElementById("tituloPagina").style.color = "black";      
   typewrite();
 }
@@ -390,6 +390,7 @@ function jugar() {
   document.getElementById("contenedor-crearpersonaje").style.display = "none";
   titulosYTextos(titulos[5], textos[6]);
 
+
   let btnCrearPersonaje = document.getElementById("Crear-personaje-btn");
   btnCrearPersonaje && btnCrearPersonaje.remove();
   document.getElementById("dinero-actual").style.display = "none";
@@ -441,9 +442,20 @@ function recuperarEnergia() {
 function pantallaFinal() {
   let cuerpo = document.getElementById("contenedor");
   cuerpo.innerHTML = `<legend id=tituloPagina >Fin</legend>
-    <div><P>Luego de la última batalla caes de rodillas, agotado.
-    La adrenalina comienza a desvanecerse y los golpes recibidos comienzan a sentirse en el cuerpo.
-    Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.</P></div>`;
+    <div><P>Tras la última batalla caes de rodillas, agotado.
+    La adrenalina comienza a desvanecerse, los golpes recibidos no te dejan erguirte.
+    Levantas la vista y por delante la capilla te aguarda, iluminada por la luz de la luna.
+    Decides juntar tus últimas fuerzas para ingresar en ella, trastabillas en el camino pero finalmente lo logras.
+    Tiras tu ${jugador.arma} al suelo, toda manchada en sangre y subes las escalinatas hacia el altar.
+    Apoyado sobre el mismo, encuentras el talismán, el cual tomas entre tus manos y con tus últimas fuerzas lo abrazas.
+    Tus piernas ceden y quedas desplomado en el suelo, esperando el final.
+    Alguien te llama, no tienes fuerzas para mover la cabeza, sólo puedes mover los ojos.
+    Algo blanco comienza a iluminar todo, la luz te quema y de golpe recuerdas todo.
+    Lágrimas recorren tus ojos.
+
+
+
+    </P></div>`;
     document.getElementById("tituloPagina").style.color = "black";
   typewrite();
 
