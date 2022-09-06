@@ -10,23 +10,23 @@ class Personaje {
     this.arma = "";
   }
 
-  // Si funciona lo dejamos sino borramos este bloque
 
   equiparArma(arma) {
-    if (this.tipo.arma === arma) {
-      this.armaEquipada = true;
-      this.arma = arma;
-    } else {
-      this.armaEquipada = true;
-      this.penalizacion = true;
-      this.arma = arma;
-    }
+    this.tipo.arma === arma ? (
+      this.armaEquipada = true,
+      this.arma = arma
+    ) : (
+      this.armaEquipada = true,
+      this.penalizacion = true,
+      this.arma = arma
+    );
   }
+
 
   // Agregue la confirmacioni de matarlo en caso de que uno le pegue no recibe daño de algo que esta muerto
   atacar(enemigo) {
     if (!enemigo.muerto && this.penalizacion) {
-      enemigo.damage(parseInt((this.tipo.fuerza -= 5)));
+      enemigo.damage(this.tipo.fuerza - 5);
       if (enemigo.energia > 0) {
         console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
         this.recibirDamage(enemigo.fuerza);
@@ -37,7 +37,7 @@ class Personaje {
         enemigo.muerto = true;
       }
     } else if (!enemigo.muerto) {
-      enemigo.damage(parseInt(this.tipo.fuerza));
+      enemigo.damage(this.tipo.fuerza);
       if (enemigo.energia > 0) {
         console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
         this.recibirDamage(enemigo.fuerza);

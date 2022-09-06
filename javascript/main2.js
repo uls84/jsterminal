@@ -41,7 +41,8 @@ let textos = [
 
   `Llegas a la puerta de una cripta, no recuerdas bien porque pero sabes que debes adentrarte en la misma para lograr el proposito, pero cual es el proposito?
     La memoria no te esta dando una buena pasada, mientras mas fuerte haces el esfuerzo por recordar mas dificil parece ser recordarlo.
-    Sabes sin embargo que dentro las personas que no tomen el riesgo necesario seran comida de gusanos.`,
+    Sabes sin embargo que dentro las personas que no tomen el riesgo necesario seran comida de gusanos. Hay un enemigo!`,
+
   `Te adentras en la oscuridad de la cripta, percibes un olor nauseabundo seguido de un sonido.
     Logras agacharte justo a tiempo para esquivar algo que apunto a tu cabeza.
     Al levantarte lo ves erguido a punto de volver a atacar, es tu turno.`,
@@ -64,18 +65,40 @@ let titulos = [
   "Cripta",
 ];
 
-/*
-let enemigos = [
-    { nombre: "Esqueleto", energia: 20, fuerza: 15, arma: "Espada" },
-    { nombre: "Devorador de almas", energia: 10, fuerza: 5, arma: "Mordida" },
-    { nombre: "Espectro abismal", energia: 20, fuerza: 10, arma: "Alarido" },
-    { nombre: "Abominacion reptante", energia: 20, fuerza: 15, arma: "Lanza" },
-    { nombre: "Sucubo famelico", energia: 30, fuerza: 25, arma: "Garras" },
-    { nombre: "Cancerbero", energia: 50, fuerza: 45, arma: "Mordida" },
-];*/
+
+/*comprobantes: (uf, data) => {
+        return new Promise((resolve, reject) => {
+            return Api.fetch(`${Environment.api}api/unidades-facturaciones/${uf}/comprobantes`, 'GET', data
+            ).then(data => {
+                data = data.map(item => new Factura(item));
+                resolve(data);
+            }).catch((error) => {
+                reject(error);
+            }
+            );
+        });
+    },*/
 
 /*
+
+/*
+async function getEnemigos() {
+    return new Promise((resolve, reject) => {
+        return fetch('./mocks/enemigos.json')
+          .then(response => response.json())
+          .then(data => resolve(data))
+        .catch((error) => {
+            reject(error);
+        }
+        );
+    });
+}
+
+
 let enemigos;
+
+
+/* Esto posiblemente no vaya 
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
@@ -89,13 +112,14 @@ const tipoDePersonaje = [
   { nombre: "VerdugoErrante", energia: 85, fuerza: 25, arma: "Hacha" },
 ];
 
+
 let enemigos = [
-  ["Esqueleto", 20, 15, "Espada"],
-  ["Devorador de almas", 20, 20, "Mordida"],
-  ["Espectro abismal", 20, 10, "Alarido"],
-  ["Abominacion reptante", 20, 15, "Tentaculos"],
+  ["Esqueleto", 30, 15, "Espada"],
+  ["Devorador de almas", 30, 20, "Mordida"],
+  ["Espectro abismal", 30, 10, "Alarido"],
+  ["Abominacion reptante", 50, 15, "Tentaculos"],
   ["Sucubo famelico", 30, 25, "Garras"],
-  ["Cancerbero", 20, 10, "Mordida"],
+  ["Cancerbero", 60, 30, "Mordida"],
 ];
 
 let enemys = [];
@@ -109,9 +133,13 @@ function crearArrayDeEnemigos(enemigos) {
 }
 crearArrayDeEnemigos(enemigos);
 
-/* Esto lo borramos luego
-const catalogoEnemigos = new CatalogoEnemigos(enemigos);
-console.log("Mostrar enemigos originales: ", catalogoEnemigos.enemigos);
+/*
+function cargar(){
+  await enemigosFetch = getEnemigos();
+  crearArrayDeEnemigos(enemienemigosFetchgos);
+}
+
+cargar();
 */
 
 let jugador = "";
@@ -127,12 +155,10 @@ function borrarBtn() {
 }
 
 function armar(arma, config) {
-  console.log("Armar--->", arma);
   equipamiento(arma);
   config.puedeJugar = true;
   localStorage.setItem("datos", JSON.stringify(config));
   borrarBtn();
-  console.log("Entre a armar");
 }
 
 function tienda() {
@@ -159,7 +185,7 @@ function tienda() {
   div.appendChild(textoDineroDisponible);
 
   titulosYTextos(titulos[3], textos[2]);
-  boton(opcionesTienda);
+  crearBoton(opcionesTienda);
   config.puedeJugar && borrarBtn();
 
   let btnEspada = document.getElementById("Espada-btn");
@@ -194,7 +220,7 @@ function tienda() {
   };
 }
 
-function boton(nombres) {
+function crearBoton(nombres) {
   for (const nombre of nombres) {
     let fieldset = document.getElementById("contenedor");
     let btn = document.createElement("btn");
@@ -220,6 +246,7 @@ function pantallaPrincipal() {
   titulosYTextos(titulos[0], textos[0]);
   let btn = document.getElementById("dato");
   btn.onclick = () => menuPrincipal();
+  typewrite()
 }
 
 const opcionesMenuPrincipal = ["Crear-personaje", "Tienda", "Jugar", "Salir"];
@@ -239,6 +266,7 @@ function salir() {
             
 
             Por favor refresca el navegador y vuelve a intentarlo.</P></div>`;
+  typewrite();
 }
 
 function menuPrincipal() {
@@ -250,7 +278,7 @@ function menuPrincipal() {
   titulosYTextos(titulos[1], textos[1]);
   let btnContinuar = document.getElementById("dato");
   btnContinuar ? btnContinuar.remove() : console.log("Ya se borro");
-  boton(opcionesMenuPrincipal);
+  crearBoton(opcionesMenuPrincipal);
 
   let config = JSON.parse(localStorage.getItem("datos"));
 
@@ -327,6 +355,19 @@ document.getElementById("btn_crearpersonaje").onclick = function () {
   menuPrincipal();
 };
 
+function typewrite() {
+  $('#texto').each(function () {
+    $(this).typewrite({
+      speed: 35,
+      blinkSpeed: 6,
+      blinkingCursor: false,
+      actions: [
+        { type: $(this).text() },
+      ]
+    });
+  });
+}
+
 function jugar() {
   document.body.className = "";
   document.body.classList.add("jugar");
@@ -343,74 +384,74 @@ function jugar() {
     btnAnterior.remove("boton");
   });
 
-  let botonEntrar = ["Entrar"];
-  boton(botonEntrar);
-  document.getElementById("Entrar-btn").style.color = "black";
+  crearBoton(["Entrar"]);
   let btnEntrar = document.getElementById("Entrar-btn");
+  btnEntrar.style.color = "black";
   btnEntrar.onclick = () => {
     batalla();
   };
 }
 
 // Prueba para generar un array con los enemigos
+let enemyIndex = Math.floor(Math.random() * enemys.length);
 
 function batalla() {
   document.getElementById("Entrar-btn").remove();
   titulosYTextos(titulos[6], textos[5]);
-  boton(opcionesJugar);
-  document.getElementById("Atacar-btn").style.color = "black";
-  document.getElementById("Pocion-btn").style.color = "black";
+  crearBoton(opcionesJugar);
+  typewrite();
   let btnAtacar = document.getElementById("Atacar-btn");
+  btnAtacar.style.color = "black";
   btnAtacar.onclick = () => {
     visualizarAtaque();
   };
+
   let btnPocion = document.getElementById("Pocion-btn");
+  btnPocion.style.color = "black";
   btnPocion.onclick = () => {
     recuperarEnergia();
   };
 }
 
 function recuperarEnergia() {
-  jugador.usarPocion();
-  swal(`Usaste una pocion y ahora tienes ${jugador.energia}`);
+  jugador.getCantPociones ? (
+    jugador.usarPocion(),
+    swal(`Usaste una pocion y ahora tienes ${jugador.energia} y ${jugador.getCantPociones} pociones.`)
+  ) : (
+    swal(`No tienes más pociones.`)
+  );
 }
 
 function pantallaFinal() {
-  swal(`Luego de la última batalla caes de rodillas, agotado.
-        La adrenalina comienza a desvaneserse y los golpes recibidos comienzan a sentirse en el cuerpo.
-        Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.
-        `);
+  let cuerpo = document.getElementById("contenedor");
+  cuerpo.innerHTML = `<legend>Fin</legend>
+    <div><P>Luego de la última batalla caes de rodillas, agotado.
+    La adrenalina comienza a desvaneserse y los golpes recibidos comienzan a sentirse en el cuerpo.
+    Delante tuyo la capilla te aguarda, iluminada por la luz de la luna, todo este sufrimiento no ha sido en vano.</P></div>`;
+  typewrite();
+
 }
 
-function visualizarAtaque() {
-  let enemyIndex = Math.floor(Math.random() * enemys.length);
-  let textoModificado = document.getElementById("texto");
-  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
-  ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
-  En camara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque y sabes que el golpe será inevitable.
-  ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
-  let div = document.getElementById("contenedor");
+function alertaEnergiaBaja() {
+  if ((jugador.energia <= 20) && (jugador.energia > 5)) {
+    //PARA TOMAR POCION
+    swal(`Sientes que el último golpe recibido te dejo trastabillando, tanteas la bolsa con pociones y recuerdas que tienes ${jugador.getCantPociones}.`);
+  } else if (jugador.energia <= 0) {
+    //GAMEOVER
+    swal(`Tu cabeza recibe un golpe que no puedo resistir, todo gira a tu alrededor y los sonidos comienzan a desvanecer.
+        Ya no sabes quien eres, no sabes dónde estas ni el motivo de esta situacion.
+        Tu visión comienza a nublarse, sólo quedan manchas y un eco apagandose, crees que alguien susurra tu nombre.`);
+    salir();
+  }
+}
 
-  if (!enemys[enemyIndex].muerto) {
-    let statusEnergia = document.getElementById("statusEnergia")
-      ? document.getElementById("statusEnergia")
-      : document.createElement("p");
-    statusEnergia.setAttribute("id", `statusEnergia`);
-    statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} .................................. ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
-    div.appendChild(statusEnergia);
-    ataque(enemys[enemyIndex]);
-    if ((jugador.energia <= 20) && (jugador.energia > 5)) {
-      swal(`Sientes que el último golpe recibido te dejo trastabillando, tanteas la bolsa con pociones y recuerdas que tienes ${jugador.getCantPociones}.`);
-    } else if (jugador.energia <= 0) {
-      swal(`Tu cabeza recibe un golpe que no puedo resistir, todo gira a tu alrededor y los sonidos comienzan a desvanecer.
-            Ya no sabes quien eres, no sabes dónde estas ni el motivo de esta situacion.
-            Tu visión comienza a nublarse, sólo quedan manchas y un eco apagandose, crees que alguien susurra tu nombre.`);
-      salir();
-    }
-  } else if ((enemys[enemyIndex].muerto) && (enemys.length != 0)) {
+function enemigoMuertoyArrayNoVacio() {
+  if ((enemys[enemyIndex].muerto) && (enemys.length != 0)) {
     console.log(`${enemys[enemyIndex].nombre} ha muerto`);
     console.log(`Se va a borrar a ${enemys[enemyIndex].nombre}`);
     enemys.splice(enemyIndex, 1);
+    //Cargo nuevo enemigo al azar
+    enemyIndex = Math.floor(Math.random() * enemys.length);
     console.log(enemys);
     cargaEscenario();
   } else if (enemys.length == 0) {
@@ -418,8 +459,35 @@ function visualizarAtaque() {
   }
 }
 
+function visualizarAtaque() {
+  if (enemys.length == 0) {
+    console.log('GANE');
+    pantallaFinal();
+    return;
+  }
+
+  let textoModificado = document.getElementById("texto");
+  textoModificado.innerText = `Tomas rapidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
+  ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibro.
+  En camara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque y sabes que el golpe será inevitable.
+  ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
+  let div = document.getElementById("contenedor");
+  ataque(enemys[enemyIndex]);
+
+  let statusEnergia = document.getElementById("statusEnergia")
+    ? document.getElementById("statusEnergia")
+    : document.createElement("p");
+  statusEnergia.setAttribute("id", `statusEnergia`);
+  statusEnergia.innerText = `${jugador.nombre}: ${jugador.energia} .................................. ${enemys[enemyIndex].nombre}: ${enemys[enemyIndex].energia}`;
+  div.appendChild(statusEnergia);
+  (!enemys[enemyIndex].muerto) ?
+    alertaEnergiaBaja()
+    :
+    enemigoMuertoyArrayNoVacio();
+}
+
+
 function ataque(enemy) {
-  console.log("Entre al ataque");
   if (!enemy.muerto) {
     if (enemy.energia > 0) {
       jugador.atacar(enemy);
@@ -462,19 +530,19 @@ Sigues sintiendo que hay mas peligro por delante pese al miedo, una leve sonrisa
 Tomas el candelabro del suelo y continuas explorando la oscuridad que te rodea, solo para llegar a un punto donde las paredes forman una caverna y decides adentrarte en la misma.`,
 ];
 
-//let textoPelea = [`Tomas tu ${jugador.arma} y lanzas un ataque a la mayor velocidad posible.
-//                    ${enemys[enemy].nombre} recibe el golpe y retrocede brevemente `];
 
 function cargaEscenario() {
+
   document.getElementById("Atacar-btn").remove();
   document.getElementById("Pocion-btn").remove();
   document.getElementById("statusEnergia").remove();
   let numero = Math.floor(Math.random() * escenarios.length);
   titulosYTextos(escenarios[numero], escenariosTexto[numero]);
   let botonEntrar = ["Entrar"];
-  boton(botonEntrar);
+  crearBoton(botonEntrar);
   document.getElementById("Entrar-btn").style.color = "black";
   let btnEntrar = document.getElementById("Entrar-btn");
+  typewrite();
   btnEntrar.onclick = () => {
     batalla();
   };
@@ -509,7 +577,8 @@ function comprarPociones() {
     ? console.log(
       `Miras en el interior de tu bolso y ves ${jugador.getCantPociones} pociones. Aún sabes que tienes ${jugador.dinero} para gastar`
     )
-    : swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
+    :
+    swal(`No tienes dinero ${jugador.nombre} ya puedes largarte de aqui.`);
   mostrarDineroActual();
 }
 
