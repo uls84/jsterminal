@@ -487,7 +487,7 @@ function visualizarAtaque() {
 
   let textoModificado = document.getElementById("texto");
   textoModificado.innerText = `Tomas rápidamente tu ${jugador.arma} por el mango y lanzas una estocada, que hubieses deseado que fuese con mayor fuerza.
-                               ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto, al retomar el equilibrio.
+                               ${enemys[enemyIndex].nombre} recibe el golpe pero logra esquivar parte del impacto.
                                En cámara lenta notas cómo inclina su cuerpo hacia adelante y al tomar impulso lanza otro ataque.
                                Sabes que el golpe será inevitable.
                                ${enemys[enemyIndex].nombre} lanza su ${enemys[enemyIndex].arma}`;
@@ -534,10 +534,11 @@ const escenariosTexto = [
   Al avanzar te encuentras con un agujero, los escombros a su alrededor fueron lo que generaron aquel sonido,
   decides entrar en él pero primero introduces el candelabro para iluminar el espacio.`,
 
-  `Te adentras por el pasillo, no hay ningun sonido mas que el de tus botas pisando tierra húmeda y fragmentos de huesos.
-  La luz de él candelabro comienza a iluminar cada vez más mientras los muros van cerrándose lentamente y comienzas a ponerte nervioso.
-  Llegas al punto donde la única manera de pasar es poniéndote de perfil y raspando las mejillas, hasta un punto donde ya no pasas.
-  El miedo se apodera, las velas del candelabro comienzan a apagarse, el viento en el rostro te da algo de esperanza.
+  `Te adentras por el pasillo, no hay ningún sonido mas que el de tus botas pisando tierra húmeda y fragmentos de huesos.
+  La luz del candelabro comienza a iluminar cada vez más, debido a que los muros se van cerrando.
+  Lentamente sientes que se te dificulta respirar, comienzas a agitarte, sientes claustrofobia.
+  Llegas al punto donde la única manera de pasar es poniéndote de perfil y raspando las mejillas, por poco no puedes pasar.
+  El miedo se apodera, las velas del candelabro comienzan a apagarse, un leve viento en el rostro te da esperanzas.
   Decides avanzar de todos modos y logras pasar el punto más angosto, unas gotas de sangre te corren por las mejillas pero no importa,
   piensas que lo peor ya ha pasado.`,
 
