@@ -467,7 +467,7 @@ function alertaEnergiaBaja() {
           tanteas la bolsa con pociones y recuerdas que aun tienes ${jugador.getCantPociones}.`);
   } else if (jugador.energia <= 0) {
     //GAMEOVER
-    swal(`Tu cabeza recibe un golpe que no puedo resistir.
+    swal(`Tu cabeza recibe un golpe que no pudo resistir.
           Todo gira a tu alrededor y los sonidos comienzan a desvanecerse.
           No sabes quien eres, ni dónde te encuentras.
           Tu visión comienza a nublarse y sólo quedan manchas.
