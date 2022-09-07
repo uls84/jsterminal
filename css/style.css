@@ -148,7 +148,7 @@ div {
   margin-top: 10px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 840px) {
   p {
     font-size: 15px;
     padding: 2px 2px;
