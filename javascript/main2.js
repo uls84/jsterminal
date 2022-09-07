@@ -58,7 +58,7 @@ let textos = [
    La memoria no te está dando una buena pasada, mientras más fuerte haces el esfuerzo por recordar más difícil parece ser recordarlo.
     Sabes sin embargo que dentro las personas que no tomen el riesgo necesario serán comida de gusanos.`,
 
-  
+
 ];
 
 localStorage.clear();
@@ -78,33 +78,16 @@ let titulos = [
   "Oscuridad",
 ];
 
-
-/*comprobantes: (uf, data) => {
-        return new Promise((resolve, reject) => {
-            return Api.fetch(`${Environment.api}api/unidades-facturaciones/${uf}/comprobantes`, 'GET', data
-            ).then(data => {
-                data = data.map(item => new Factura(item));
-                resolve(data);
-            }).catch((error) => {
-                reject(error);
-            }
-            );
-        });
-    },*/
-
-/*
-
-/*
 async function getEnemigos() {
-    return new Promise((resolve, reject) => {
-        return fetch('./mocks/enemigos.json')
-          .then(response => response.json())
-          .then(data => resolve(data))
-        .catch((error) => {
-            reject(error);
-        }
-        );
-    });
+  return new Promise((resolve, reject) => {
+    return fetch('./mocks/enemigos.json')
+      .then(response => response.json())
+      .then(data => resolve(data))
+      .catch((error) => {
+        reject(error);
+      }
+      );
+  });
 }
 
 
@@ -125,7 +108,7 @@ const tipoDePersonaje = [
   { nombre: "VerdugoErrante", energia: 85, fuerza: 25, arma: "Hacha" },
 ];
 
-
+/*
 let enemigos = [
   ["Esqueleto", 30, 15, "Espada"],
   ["Devorador de almas", 30, 20, "Mordida"],
@@ -133,7 +116,7 @@ let enemigos = [
   ["Abominacion reptante", 50, 15, "Tentaculos"],
   ["Sucubo famelico", 30, 25, "Garras"],
   ["Cancerbero", 60, 30, "Mordida"],
-];
+];*/
 
 let enemys = [];
 
@@ -146,14 +129,14 @@ function crearArrayDeEnemigos(enemigos) {
 }
 crearArrayDeEnemigos(enemigos);
 
-/*
-function cargar(){
+
+function cargar() {
   await enemigosFetch = getEnemigos();
   crearArrayDeEnemigos(enemienemigosFetchgos);
 }
 
 cargar();
-*/
+
 
 let jugador = "";
 
@@ -279,7 +262,7 @@ function salir() {
             
 
             Por favor refresca el navegador y vuelve a intentarlo.</p></div>`;
-  document.getElementById("tituloPagina").style.color = "black";      
+  document.getElementById("tituloPagina").style.color = "black";
   typewrite();
 }
 
