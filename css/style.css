@@ -147,3 +147,93 @@ select#tipo {
 div {
   margin-top: 10px;
 }
+
+@media screen and (max-width: 768px) {
+  p {
+    font-size: 15px;
+    padding: 2px 2px;
+    margin: 2px 4px;
+  }
+
+  fieldset#contenedor {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    margin: 226px 14px;
+  }
+
+
+  fieldset#contenedor-crearpersonaje {
+    padding: 12px;
+    margin: 226px 14px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    height: auto;
+    width: auto;
+  }
+
+  legend {
+    padding: 0px 24px;
+    font-size: 18px;
+  }
+
+  p#statusEnergia {
+    font-size: 17px;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+
+  p {
+    font-size: 15px;
+    padding: 2px 2px;
+    margin: 2px 4px;
+  }
+
+  fieldset#contenedor {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    margin: 226px 14px;
+  }
+
+
+  fieldset#contenedor-crearpersonaje {
+    padding: 12px;
+    margin: 226px 14px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    height: auto;
+    width: auto;
+  }
+
+  legend {
+    padding: 0px 24px;
+    font-size: 18px;
+  }
+
+  p#statusEnergia {
+    font-size: 17px;
+  }
+}
