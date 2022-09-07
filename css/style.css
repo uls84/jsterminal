@@ -161,13 +161,13 @@ div {
     flex-direction: column;
     justify-content: center;
     width: auto;
-    margin: 226px 14px;
+    margin: 130px 18px;
   }
 
 
   fieldset#contenedor-crearpersonaje {
     padding: 12px;
-    margin: 130px 14px;
+    margin: 130px 18px;
     justify-content: center;
     align-items: center;
   }
@@ -207,13 +207,13 @@ div {
     flex-direction: column;
     justify-content: center;
     width: auto;
-    margin: 130px 14px;
+    margin: 130px 18px;
   }
 
 
   fieldset#contenedor-crearpersonaje {
     padding: 12px;
-    margin: 226px 14px;
+    margin: 226px 18px;
     justify-content: center;
     align-items: center;
   }
