@@ -79,46 +79,6 @@ let titulos = [
 ];
 
 
-/*comprobantes: (uf, data) => {
-        return new Promise((resolve, reject) => {
-            return Api.fetch(`${Environment.api}api/unidades-facturaciones/${uf}/comprobantes`, 'GET', data
-            ).then(data => {
-                data = data.map(item => new Factura(item));
-                resolve(data);
-            }).catch((error) => {
-                reject(error);
-            }
-            );
-        });
-    },*/
-
-/*
-
-/*
-async function getEnemigos() {
-    return new Promise((resolve, reject) => {
-        return fetch('./mocks/enemigos.json')
-          .then(response => response.json())
-          .then(data => resolve(data))
-        .catch((error) => {
-            reject(error);
-        }
-        );
-    });
-}
-
-
-let enemigos;
-
-
-/* Esto posiblemente no vaya 
-
-fetch('./mocks/enemigos.json')
-  .then(response => response.json())
-  .then(data => enemigos = data)
-  .catch(error => console.log(error));
-  */
-
 const tipoDePersonaje = [
   { nombre: "CaballeroCaido", energia: 90, fuerza: 20, arma: "Espada" },
   { nombre: "SaqueadorDeTumbas", energia: 100, fuerza: 15, arma: "Daga" },
@@ -145,15 +105,6 @@ function crearArrayDeEnemigos(enemigos) {
   }
 }
 crearArrayDeEnemigos(enemigos);
-
-/*
-function cargar(){
-  await enemigosFetch = getEnemigos();
-  crearArrayDeEnemigos(enemienemigosFetchgos);
-}
-
-cargar();
-*/
 
 let jugador = "";
 
