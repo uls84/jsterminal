@@ -1,41 +1,239 @@
 * {
-    margin: 0%;
-    padding: 0%;
-    box-sizing: border-box;
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: blue;
-    font-family: 'Overpass Mono', monospace;
-    /*color: blue;*/
-    color:aliceblue;
+  background-color: rgb(0, 0, 170);
+  font-family: 'Overpass Mono', monospace !important;
+  color: rgb(174, 174, 170);
+  height: 978px;
+  width: auto;
 }
 
-h1 {
-    color: aliceblue;
-    margin: 64px 62px;
+.menu-principal #dinero-actual {
+  display: none;
+}
+
+#contenedor-crearpersonaje {
+  display: none;
+}
+
+input#personaje {
+  width: 461px;
+  height: 22px;
+  margin-bottom: 10px;
+}
+
+main {
+  height: 560px;
+  width: 980px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+
+#respuesta {
+  display: none;
+}
+
+fieldset#contenedor {
+  padding: 12px;
+  margin-top: 226px;
+}
+
+fieldset#contenedor-crearpersonaje {
+  padding: 12px;
+  margin-top: 226px;
+}
+
+p {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: large;
 }
 
 legend {
-    background-color: aliceblue;
+  color: rgb(0, 0, 170);
+  background: rgb(170, 170, 170);
+  font-size: large;
+  font-weight: bold;
+  padding: 0px 8px;
 }
 
-fieldset {
-    height: 400px;
-    width: 800px;
-    text-align: center;
+input,
+btn.boton {
+  background: rgb(170, 170, 170);
+  border-style: outset;
+  border-width: 2px;
+  color: rgb(0, 0, 170);
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
 }
 
-textarea {
-    height: 30px;
-    width: 600px;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
+input:hover,
+btn:hover {
+  background: rgb(180, 180, 180);
+  border-style: outset;
+  border-width: 2px;
+  border-color: rgb(27, 27, 27);
+  color: rgb(0, 0, 130);
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
 }
 
-section {
-    text-align: center;
-    padding: 22px;
+select#tipo {
+  color: rgb(0, 0, 170);
+  background: rgb(170, 170, 170);
+}
+
+.swal-overlay--show-modal .swal-modal {
+  opacity: 1;
+  pointer-events: auto;
+  box-sizing: border-box;
+  -webkit-animation: showSweetAlert .3s;
+  animation: showSweetAlert .3s;
+  will-change: transform;
+  background-color: rgb(0, 0, 170);
+}
+
+.swal-text:first-child {
+  margin-top: 45px;
+  color: rgb(174, 174, 170);
+  font-family: 'Overpass Mono', monospace !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+.swal-button {
+  background-color: rgb(174, 174, 170);
+  color: rgb(0, 0, 170);
+  border: none;
+  box-shadow: none;
+  letter-spacing: normal;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 24px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.swal-button:hover {
+  background-color: rgb(174, 174, 170);
+  color: rgb(0, 0, 170);
+  border: none;
+  box-shadow: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 24px;
+  margin: 0;
+  cursor: pointer;
+}
+
+div {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 840px) {
+  p {
+    font-size: 15px;
+    padding: 2px 2px;
+    margin: 2px 4px;
+  }
+
+  fieldset#contenedor {
     display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    margin: 130px 18px;
+  }
+
+
+  fieldset#contenedor-crearpersonaje {
+    padding: 12px;
+    margin: 130px 18px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    height: auto;
+    width: auto;
+  }
+
+  legend {
+    padding: 0px 24px;
+    font-size: 17px;
+  }
+
+  p#statusEnergia {
+    font-size: 17px;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+
+  p {
+    font-size: 15px;
+    padding: 2px 2px;
+    margin: 2px 4px;
+  }
+
+  fieldset#contenedor {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    margin: 130px 18px;
+  }
+
+
+  fieldset#contenedor-crearpersonaje {
+    padding: 12px;
+    margin: 226px 18px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    height: auto;
+    width: auto;
+  }
+
+  legend {
+    padding: 0px 24px;
+    font-size: 17px;
+  }
+
+  p#statusEnergia {
+    font-size: 17px;
+  }
 }

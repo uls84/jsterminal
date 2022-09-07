@@ -5,32 +5,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap" rel="stylesheet">
 
 <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mrvautin/typewrite/master/dist/typewrite.min.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
 
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" defer></script>
     <script src="./javascript/classes/enemigo.class.js" defer></script>
-    <script src="./javascript/classes/catalogoEnemigos.class.js" defer></script>
     <script src="./javascript/classes/personaje.class.js" defer></script>
-    <script src="./javascript/main.js" defer></script>
+    <script src="./javascript/main2.js" defer></script>
 </head>
 
 <body>
-    <!--
-    <div>
-        <form action="" method="post">
-            <fieldset>
-                <fieldset id="field">
-                    <div id="formularioField">
-                        <textarea name="comentarios" placeholder="Deje un comentario"></textarea>
-                    </div>
-                </fieldset>
-            </fieldset>
-        </form>
-    </div> -->
-
+    <main>
+        <fieldset id="contenedor">
+            <legend id="tituloPagina"></legend>
+            <p id="texto">Texto a mostrar</p>
+            <input type="submit" value="Continuar" id="dato">
+        </fieldset>
+        <fieldset id="contenedor-crearpersonaje">
+            <legend id="tituloPersonaje"></legend>
+            <p id="textoPersonaje">Crea el personaje</p>
+            <p>Ingrese su nombre</p>
+            <input type="text" id="nombre">
+            <p >Ingrese su tipo</p>
+            <select id="tipo">
+                <option value=""></option>
+                <option value="1">CaballeroCaido</option>
+                <option value="2">SaqueadorDeTumbas</option>
+                <option value="3">VerdugoErrante</option>
+            </select>
+            <div>
+                <input type="submit" value="Continuar" id="btn_crearpersonaje">
+            </div>
+        </fieldset>
+    </main>
 </body>
 
 </html>
-

@@ -1,70 +1,107 @@
 class Personaje {
-    constructor(nombre, tipo) {
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.dinero = 1000;
-        this.pociones = 0;
-        this.armaEquipada = false;
-        this.penalizacion = false;
-    }
+  constructor(nombre, tipo) {
+    this.nombre = nombre;
+    this.tipo = tipo;
+    this.dinero = 1000;
+    this.energia = 100;
+    this.pociones = 0;
+    this.armaEquipada = false;
+    this.penalizacion = false;
+    this.arma = "";
+  }
 
-    equiparArma(arma) {
-        if (this.tipo.arma === arma) {
-            this.armaEquipada = true;
-        } else if (this.tipo.arma !== arma) {
-            this.armaEquipada = true;
-            this.penalizacion = true;
-        }
-    }
 
-    get getDineroDisponible() {
-        return this.dinero;
-    }
+  equiparArma(arma) {
+    this.tipo.arma === arma ? (
+      this.armaEquipada = true,
+      this.arma = arma
+    ) : (
+      this.armaEquipada = true,
+      this.penalizacion = true,
+      this.arma = arma
+    );
+  }
 
-    get verificarArmaEquipada() {
-        return this.armaEquipada;
-    }
 
-    atacar(enemigo) {
-        if (this.penalizacion) {
-            enemigo.atacar(this.fuerza -= 5)
-        } else {
-            enemigo.atacar(tipo.fuerza);
-            if (enemigo.energia > 0) {
-                recibirDamage(enemigo.fuerza);
-            } else {
-                return `${enemigo.nombre} ha muerto`;
-            }
-        }
-    }
-    // luego de atacar por primera vez tenes que tener las opciones de volver a atacar, ver la energia o que te diga que energia tenes y si queres tomar una pocion antes de atacar
+  atacar(enemigo) {
+    if (!enemigo.muerto && this.penalizacion) {
+      enemigo.damage(this.tipo.fuerza - 5);
+      if (enemigo.energia > 0) {
+        console.log(`El enemigo recibio ${this.tipo.fuerza - 5} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } else if (enemigo.energia <= 0) {
+        console.log(`El enemigo esta muerto`);
+        enemigo.muerto = true;
+      }
+    } else if (!enemigo.muerto) {
+      enemigo.damage(this.tipo.fuerza);
+      if (enemigo.energia > 0) {
+        console.log(`El enemigo recibio ${this.tipo.fuerza} de damage`);
+        this.recibirDamage(enemigo.fuerza);
+        console.log(`El enemigo hizo ${enemigo.fuerza} de damage`);
+        console.log(`Te queda ${this.energia} de vida`);
+      } if (enemigo.energia <= 0) {
+        console.log(`El enemigo esta muerto`);
+        enemigo.muerto = true;
+      }
 
-    recibirDamage(fuerza) {
-        this.tipo.energia -= fuerza;
+    } else {
+      console.log(`El enemigo esta muerto`);
+      enemigo.muerto = true;
+      return;
     }
+  }
 
-    restarDinero(dinero) {
-        this.dinero -= dinero;
-    }
 
-    sumarDinero(dinero) {
-        this.dinero += dinero;
-    }
 
-    guardarPociones(pociones) {
-        this.pociones += pociones;
-    }
+  get getDineroDisponible() {
+    return this.dinero;
+  }
 
-    get getCantPociones() {
-        return this.pociones;
-    }
+  get verificarArmaEquipada() {
+    return this.armaEquipada;
+  }
 
-    usarPocion() {
-        if (this.pociones !== 0) {
-            this.tipo.vida += 25;
-            if (this.vida > 100) {
-                this.vida = 100;
-            }
-        }
+  recibirDamage(fuerza) {
+    this.energia -= fuerza;
+  }
+
+  restarDinero(dinero) {
+    this.dinero -= dinero;
+    console.log(this.dinero);
+    if (this.dinero <= 0) {
+      console.log("no mas dinero");
+      this.dinero = false;
     }
+  }
+
+  sumarDinero(dinero) {
+    this.dinero += dinero;
+  }
+
+  guardarPociones(pociones) {
+    this.pociones += pociones;
+  }
+
+  get getCantPociones() {
+    return this.pociones;
+  }
+
+  get getEnergia() {
+    return this.energia;
+  }
+
+  usarPocion() {
+    if (this.pociones > 0) {
+      this.energia += 25;
+      this.pociones--;
+      if (this.energia > 100) {
+        this.energia = 100;
+      }
+    } else if (this.pociones <= 0) {
+      console.log("No hay mas pociones.");
+    }
+  }
 }
