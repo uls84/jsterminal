@@ -83,7 +83,7 @@ let enemigos;
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
-  .then(data => enemigos = data)
+  .then(data => crearArrayDeEnemigos(data))
   .catch(error => console.log(error));
 
 
@@ -103,8 +103,6 @@ function crearArrayDeEnemigos(enemigos) {
     enemys.push(enemy);
   }
 }
-crearArrayDeEnemigos(enemigos);
-
 
 let jugador = "";
 
