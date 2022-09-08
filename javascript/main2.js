@@ -97,7 +97,7 @@ const tipoDePersonaje = [
 let enemys = [];
 
 function crearArrayDeEnemigos(enemigos) {
-  for (let enemigo of enemigos) {
+  for (enemigo of enemigos) {
     let enemy = new Enemigo(enemigo.nombre, enemigo.energia, enemigo.ataque, enemigo.arma);
     console.log(enemy);
     enemys.push(enemy);
