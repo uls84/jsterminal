@@ -78,29 +78,14 @@ let titulos = [
   "Oscuridad",
 ];
 
-async function getEnemigos() {
-  return new Promise((resolve, reject) => {
-    return fetch('./mocks/enemigos.json')
-      .then(response => response.json())
-      .then(data => resolve(data))
-      .catch((error) => {
-        reject(error);
-      }
-      );
-  });
-}
-
 
 let enemigos;
-
-
-/* Esto posiblemente no vaya 
 
 fetch('./mocks/enemigos.json')
   .then(response => response.json())
   .then(data => enemigos = data)
   .catch(error => console.log(error));
-  */
+
 
 const tipoDePersonaje = [
   { nombre: "CaballeroCaido", energia: 90, fuerza: 20, arma: "Espada" },
@@ -108,34 +93,17 @@ const tipoDePersonaje = [
   { nombre: "VerdugoErrante", energia: 85, fuerza: 25, arma: "Hacha" },
 ];
 
-/*
-let enemigos = [
-  ["Esqueleto", 30, 15, "Espada"],
-  ["Devorador de almas", 30, 20, "Mordida"],
-  ["Espectro abismal", 30, 10, "Alarido"],
-  ["Abominacion reptante", 50, 15, "Tentaculos"],
-  ["Sucubo famelico", 30, 25, "Garras"],
-  ["Cancerbero", 60, 30, "Mordida"],
-];*/
 
 let enemys = [];
 
 function crearArrayDeEnemigos(enemigos) {
   for (let enemigo of enemigos) {
-    let enemy = new Enemigo(enemigo[0], enemigo[1], enemigo[2], enemigo[3]);
+    let enemy = new Enemigo(enemigo.nombre, enemigo.energia, enemigo.ataque, enemigo.arma);
     console.log(enemy);
     enemys.push(enemy);
   }
 }
 crearArrayDeEnemigos(enemigos);
-
-
-function cargar() {
-  await enemigosFetch = getEnemigos();
-  crearArrayDeEnemigos(enemienemigosFetchgos);
-}
-
-cargar();
 
 
 let jugador = "";
